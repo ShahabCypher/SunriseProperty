@@ -31,3 +31,6 @@ API_DOCUMENTATION.md
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Uploads directory (user uploaded files)
+uploads/

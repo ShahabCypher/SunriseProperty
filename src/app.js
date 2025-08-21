@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // Import middleware
 import {
@@ -10,11 +12,22 @@ import {
   sanitizeInput,
 } from "./middleware/security.js";
 import { globalErrorHandler, notFound } from "./middleware/errorHandler.js";
+import { ensureUploadsDir } from "./middleware/upload.js";
 
 // Import routes
 import appRoutes from "./modules/app.routes.js";
 
 const app = express();
+
+// Get current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure uploads directory exists
+ensureUploadsDir();
+
+// Serve static files (uploaded images)
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Security middleware
 app.use(helmet(helmetOptions));
