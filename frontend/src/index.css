@@ -3,12 +3,63 @@
 @import "tailwindcss";
 
 @theme {
-  --color-light-gray: #f6f8fa; /* Card */
-  --color-professional-blue: #0366d6; /* Accent Primary */
-  --color-success-green: #28a745; /* Accent Secondary */
-  --color-dark-gray: #24292f; /* Text Primary */
-  --color-medium-gray: #656d76; /* Text Secondary */
-  --color-blight: #d1d9e0; /* Border */
+  --color-elegent-white: #fefefe;
+  --color-main-gold: #d4af37; /* Primary buttons, logo, luxury text highlights */
+  --color-dark-gold: #b8860b; /* Button hover states, secondary accents */
+  --color-light-gold: #daa520; /* Interactive hover effects, loading states*/
+
+  /* text colors */
+  --color-primary-dark: #2c3e50; /* Primary Dark Text - Main headings, hero titles */
+  --color-secondary-dark: #34495e; /* Secondary Dark - Subheadings, important text */
+  --color-medium-gray: #5d6d7e; /* Medium Gray Text - Navigation links, labels */
+  --color-light-gray: #7f8c8d; /* Light Gray Text - Descriptions, subtitles*/
+  --color-footer-dark: #1a252f; /* Footer Dark - Footer background gradient */
+
+  /* Clean Background Colors */
+  --color-pure-white: #ffffff; /* Pure White - Cards, forms, clean sections */
+  --color-off-white: #fefefe; /* Off White - Main page background */
+  --color-coastal-tint: #f8fffe; /* Coastal Tint - Subtle section backgrounds */
+  --color-light-section-background: #f9fafb; /* Light Section Background - Alternating section backgrounds */
+
+  /*  Ocean Gradient Colors */
+  --color-ocean-blue: #3498db; /* Ocean Blue - Hero gradients, coastal accents*/
+  --color-light-ocean-blue: #52c3f7; /* Light Ocean Blue - Hover states, interactive elements*/
+  --color-teal-turquoise: #1abc9c; /* Teal/Turquoise -  Secondary ocean accents */
+  --color-very-light-blue: #e8f4f8; /* Very Light Blue - Image placeholders*/
+  --color-light-blue-tint: #d5e8f3; /* Light Blue Tint - Card backgrounds, subtle sections*/
+
+  /*  Transparent/Overlay Colors */
+  --color-overlay-white: rgba(
+    255,
+    255,
+    255,
+    0.95
+  ); /* Semi-transparent White - Glassmorphism effects, overlays*/
+  --color-header-background: rgba(
+    255,
+    255,
+    255,
+    0.93
+  ); /* Header Background - Hover effects, subtle highlights */
+  --color-gold-overlay: rgba(
+    212,
+    175,
+    55,
+    0.1
+  ); /* Gold Overlay - Hover effects, subtle highlights */
+  --color-gold-border: rgba(212, 175, 55, 0.3); /* Gold Border/Shadow */
+  --color-subtle-shadow: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Subtle Shadow - Box shadows, depth effects */
+  --color-card-shadow: rgba(
+    0,
+    0,
+    0,
+    0.08
+  ); /* Card Shadow - Box shadows, depth effects */
 }
 
 :root {
