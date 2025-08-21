@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
+@import "tailwindcss";
+
+@theme {
+  --color-light-gray: #f6f8fa; /* Card */
+  --color-professional-blue: #0366d6; /* Accent Primary */
+  --color-success-green: #28a745; /* Accent Secondary */
+  --color-dark-gray: #24292f; /* Text Primary */
+  --color-medium-gray: #656d76; /* Text Secondary */
+  --color-blight: #d1d9e0; /* Border */
+}
+
 :root {
   font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
