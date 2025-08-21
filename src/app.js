@@ -27,7 +27,7 @@ const __dirname = path.dirname(__filename);
 ensureUploadsDir();
 
 // Serve static files (uploaded images)
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/api/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Security middleware
 app.use(helmet(helmetOptions));
