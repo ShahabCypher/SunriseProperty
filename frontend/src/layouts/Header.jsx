@@ -44,7 +44,7 @@ const Header = () => {
               {canAccessAdmin && (
                 <Link
                   to="/admin"
-                  className="flex items-center text-dark-gold border-2 border-light-gold px-4 py-2 rounded-full hover:bg-gradient-to-r hover:from-light-gold hover:to-dark-gold hover:text-white transform hover:translate-y-[-2px] transition-all duration-300 ease-in-out"
+                  className="flex items-center text-dark-gold border-2 border-light-gold px-7 py-5 rounded-full hover:bg-gradient-to-r hover:from-light-gold hover:to-dark-gold hover:text-white transform hover:translate-y-[-5px] transition-all duration-300 ease-in-out"
                   title="Admin Panel"
                 >
                   <FiSettings className="w-4 h-4 mr-2" />
