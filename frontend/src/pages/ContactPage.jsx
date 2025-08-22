@@ -388,16 +388,16 @@ const ContactPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={scrollToForm}
+              onClick={() => navigate("/properties")}
               className="bg-main-gold hover:bg-dark-gold text-pure-white px-8 py-4 rounded-lg font-medium text-lg transition-colors"
             >
-              Schedule Consultation
+              Browse Properties
             </button>
             <button
-              onClick={() => navigate("/properties")}
+              onClick={scrollToForm}
               className="bg-overlay-white text-primary-dark hover:bg-white px-8 py-4 rounded-lg font-medium text-lg transition-colors"
             >
-              Browse Properties
+              Schedule Consultation
             </button>
           </div>
         </div>
