@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import {
@@ -34,6 +34,7 @@ const App = () => {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="auth/:type" element={<AuthPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Layout>
     </BrowserRouter>
