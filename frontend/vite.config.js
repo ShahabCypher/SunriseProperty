@@ -23,6 +23,7 @@ export default defineConfig({
       assets: "/src/assets",
       pages: "/src/pages",
       services: "/src/services",
+      config: "/src/config",
     },
   },
 });
