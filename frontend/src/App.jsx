@@ -10,6 +10,7 @@ import {
 import Layout from "layouts/Layout";
 import HomePage from "pages/HomePage";
 import AuthPage from "pages/AuthPage";
+import AdminPanel from "pages/AdminPanel";
 import Loader from "components/modules/Loader";
 
 const App = () => {
@@ -23,20 +24,28 @@ const App = () => {
     }
   }, [dispatch, isInitialized]);
 
-  // Show loading spinner while initializing auth
   if (!isInitialized && isLoading) {
     return <Loader />;
   }
 
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="auth/:type" element={<AuthPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="admin/*" element={<AdminPanel />} />
+
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route index element={<HomePage />} />
+                <Route path="auth/:type" element={<AuthPage />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </Layout>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 };

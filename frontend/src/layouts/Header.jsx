@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FiSettings } from "react-icons/fi";
 import { useAuth } from "hooks/useAuth";
 
 const Header = () => {
@@ -11,6 +12,8 @@ const Header = () => {
       console.error("Logout failed:", error);
     }
   };
+
+  const canAccessAdmin = user?.role === "admin" || user?.role === "agent";
 
   return (
     <header className="bg-off-white fixed top-0 left-0 right-0 z-50 w-full shadow-lg">
@@ -36,6 +39,19 @@ const Header = () => {
                   Welcome, {user.name}
                 </span>
               )}
+
+              {/* Admin Panel Access */}
+              {canAccessAdmin && (
+                <Link
+                  to="/admin"
+                  className="flex items-center text-dark-gold border-2 border-light-gold px-4 py-2 rounded-full hover:bg-gradient-to-r hover:from-light-gold hover:to-dark-gold hover:text-white transform hover:translate-y-[-2px] transition-all duration-300 ease-in-out"
+                  title="Admin Panel"
+                >
+                  <FiSettings className="w-4 h-4 mr-2" />
+                  Admin
+                </Link>
+              )}
+
               <button
                 onClick={handleLogout}
                 className="text-dark-gold border-2 border-light-gold px-7 py-5 rounded-full hover:bg-gradient-to-r hover:from-light-gold hover:to-dark-gold hover:text-white transform hover:translate-y-[-5px] transition-all duration-300 ease-in-out"
