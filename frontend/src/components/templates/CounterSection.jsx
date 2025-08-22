@@ -1,63 +1,61 @@
 import CountUp from "react-countup";
 
 const CounterSection = () => {
+  const stats = [
+    {
+      end: 2.8,
+      suffix: "B+",
+      prefix: "$",
+      decimals: 1,
+      label: "Luxury Properties Sold",
+    },
+    {
+      end: 1200,
+      suffix: "+",
+      label: "Elite Clients Served",
+    },
+    {
+      end: 150,
+      suffix: "+",
+      label: "Luxury Specialists",
+    },
+    {
+      end: 15,
+      suffix: "+",
+      label: "Years Excellence",
+    },
+  ];
+
   return (
-    <div className="bg-light-gold/5">
-      <div className="container mx-auto px-20 py-16 flex flex-wrap justify-between *:flex *:flex-col *:items-center *:p-6">
-        <div>
-          <CountUp
-            end={2.8}
-            duration={3.5}
-            decimals={1}
-            decimal="."
-            prefix="$"
-            suffix="B+"
-            enableScrollSpy={true}
-            scrollSpyOnce={true}
-            className="text-main-gold text-5xl font-[500]"
-          />
-          <p className="text-medium-gray text-xl mt-10">
-            Luxury Properties Sold
-          </p>
-        </div>
-        <div>
-          <CountUp
-            end={1200}
-            duration={3.5}
-            decimal="."
-            suffix="  +"
-            enableScrollSpy={true}
-            scrollSpyOnce={true}
-            className="text-main-gold text-5xl font-[500]"
-          />
-          <p className="text-medium-gray text-xl mt-10">Elite Clients Served</p>
-        </div>
-        <div>
-          <CountUp
-            end={150}
-            duration={3.5}
-            decimal="."
-            suffix="  +"
-            enableScrollSpy={true}
-            scrollSpyOnce={true}
-            className="text-main-gold text-5xl font-[500]"
-          />
-          <p className="text-medium-gray text-xl mt-10">Luxury Specialists</p>
-        </div>
-        <div>
-          <CountUp
-            end={15}
-            duration={3.5}
-            decimal="."
-            suffix="  +"
-            enableScrollSpy={true}
-            scrollSpyOnce={true}
-            className="text-main-gold text-5xl font-[500]"
-          />
-          <p className="text-medium-gray text-xl mt-10">Years Excellence</p>
+    <section className="bg-gradient-to-r from-light-gold/5 to-main-gold/5 py-12 sm:py-16 lg:py-20 xl:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="text-center p-6 sm:p-8 lg:p-10 bg-pure-white/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:translate-y-[-4px] group"
+            >
+              <div className="mb-4 sm:mb-6 lg:mb-8">
+                <CountUp
+                  end={stat.end}
+                  duration={3.5}
+                  decimals={stat.decimals || 0}
+                  decimal="."
+                  prefix={stat.prefix || ""}
+                  suffix={stat.suffix}
+                  enableScrollSpy={true}
+                  scrollSpyOnce={true}
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-main-gold group-hover:scale-110 transition-transform duration-300 inline-block"
+                />
+              </div>
+              <p className="text-medium-gray text-sm sm:text-base lg:text-lg xl:text-xl font-medium leading-relaxed">
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

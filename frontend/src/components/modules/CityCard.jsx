@@ -1,11 +1,17 @@
 const CityCard = ({ city, emoji, description }) => {
   return (
-    <div className="city-card user-select-none hover:shadow-[0_0_40px_#d4af3760]">
-      <div className="text-5xl font-bold">{emoji}</div>
-      <div className="text-3xl mt-10 font-[Playfair_Display] text-light-gold">
+    <div className="city-card user-select-none hover:shadow-[0_0_40px_#d4af3760] w-full max-w-sm mx-auto">
+      <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 lg:mb-8">
+        {emoji}
+      </div>
+
+      <div className="text-xl sm:text-2xl lg:text-3xl font-[Playfair_Display] text-light-gold mb-4 sm:mb-6 lg:mb-8">
         {city}
       </div>
-      <div className="text-gray-300 mt-10">{description}</div>
+
+      <div className="text-sm sm:text-base text-gray-300 leading-relaxed px-2">
+        {description}
+      </div>
     </div>
   );
 };

@@ -70,13 +70,31 @@
 .city-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
   border-radius: 20px;
   text-align: center;
   border: 1px solid rgba(212, 175, 55, 0.3);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .city-card {
+    padding: 2.5rem 2rem;
+    min-height: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .city-card {
+    padding: 3rem 2rem;
+    min-height: 320px;
+  }
 }
 
 .city-card::before {
@@ -98,4 +116,46 @@
 .city-card:hover {
   transform: translateY(-5px);
   border-color: #d4af37;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width: 767px) {
+  .city-card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Add scrollbar styling for better mobile experience */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+/* Utility classes for responsive text truncation */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }

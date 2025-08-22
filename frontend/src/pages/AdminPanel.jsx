@@ -1,4 +1,5 @@
 import { Navigate, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import { useAppSelector } from "store/hooks";
 import { selectUser } from "store/slices/authSlice";
 import AdminSidebar from "components/admin/AdminSidebar";
@@ -11,6 +12,7 @@ import AdminPropertyEdit from "pages/admin/AdminPropertyEdit";
 
 const AdminPanel = () => {
   const user = useAppSelector(selectUser);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (!user) {
     return <Navigate to="/auth/signin" replace />;
@@ -20,14 +22,32 @@ const AdminPanel = () => {
     return <Navigate to="/" replace />;
   }
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
-    <div className="min-h-screen bg-light-section-background flex">
-      <AdminSidebar />
+    <div className="min-h-screen bg-light-section-background">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={closeSidebar}
+        />
+      )}
 
-      <div className="flex-1 flex flex-col">
-        <AdminHeader />
+      {/* Sidebar */}
+      <AdminSidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
-        <main className="flex-1 p-6 overflow-auto">
+      {/* Main Content */}
+      <div className="lg:ml-64 flex flex-col min-h-screen">
+        <AdminHeader onToggleSidebar={toggleSidebar} />
+
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
           <Routes>
             <Route index element={<AdminDashboard />} />
             <Route path="properties" element={<AdminProperties />} />

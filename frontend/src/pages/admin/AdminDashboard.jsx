@@ -26,16 +26,20 @@ const AdminDashboard = () => {
   };
 
   const StatCard = ({ title, value, icon: Icon, color }) => (
-    <div className="bg-pure-white rounded-lg shadow-md border border-gray-200 p-6">
+    <div className="bg-pure-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-medium-gray">{title}</p>
-          <p className="text-2xl font-bold text-primary-dark mt-1">{value}</p>
+          <p className="text-xs sm:text-sm font-medium text-medium-gray">
+            {title}
+          </p>
+          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary-dark mt-1">
+            {value}
+          </p>
         </div>
         <div
-          className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center`}
+          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${color} flex items-center justify-center`}
         >
-          <Icon className="w-6 h-6 text-pure-white" />
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-pure-white" />
         </div>
       </div>
     </div>
@@ -62,15 +66,19 @@ const AdminDashboard = () => {
   const typeStats = stats?.byType || [];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-primary-dark">Dashboard</h1>
-        <p className="text-medium-gray mt-1">
+    <div className="space-y-6 sm:space-y-8">
+      {/* Header */}
+      <div className="text-center sm:text-left">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-dark">
+          Dashboard
+        </h1>
+        <p className="text-medium-gray mt-1 sm:mt-2 text-sm sm:text-base">
           Overview of your property management system
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
           title="Total Properties"
           value={overallStats.totalProperties || 0}
@@ -97,16 +105,20 @@ const AdminDashboard = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-pure-white rounded-lg shadow-md border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-primary-dark mb-4">
+      {/* Content Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
+        {/* Property Types */}
+        <div className="bg-pure-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-primary-dark mb-4 sm:mb-6">
             Property Types
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 sm:space-y-4">
             {typeStats.map((type) => (
               <div key={type._id} className="flex items-center justify-between">
-                <span className="text-medium-gray capitalize">{type._id}</span>
-                <span className="font-semibold text-primary-dark">
+                <span className="text-medium-gray capitalize text-sm sm:text-base">
+                  {type._id}
+                </span>
+                <span className="font-semibold text-primary-dark text-sm sm:text-base">
                   {type.count}
                 </span>
               </div>
@@ -114,20 +126,25 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-pure-white rounded-lg shadow-md border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-primary-dark mb-4">
+        {/* Quick Stats */}
+        <div className="bg-pure-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-primary-dark mb-4 sm:mb-6">
             Quick Stats
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-medium-gray">Average Price</span>
-              <span className="font-semibold text-primary-dark">
+              <span className="text-medium-gray text-sm sm:text-base">
+                Average Price
+              </span>
+              <span className="font-semibold text-primary-dark text-sm sm:text-base">
                 ${overallStats.averagePrice?.toLocaleString() || 0}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-medium-gray">Rented Properties</span>
-              <span className="font-semibold text-primary-dark">
+              <span className="text-medium-gray text-sm sm:text-base">
+                Rented Properties
+              </span>
+              <span className="font-semibold text-primary-dark text-sm sm:text-base">
                 {overallStats.rentedProperties || 0}
               </span>
             </div>
@@ -135,76 +152,76 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="bg-pure-white rounded-lg shadow-md border border-gray-200 p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-primary-dark">
+      {/* Recent Properties */}
+      <div className="bg-pure-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-primary-dark">
             Recent Properties
           </h3>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[640px]">
             <thead className="border-b border-gray-200">
               <tr>
-                <th className="text-left py-3 px-4 font-medium text-medium-gray">
+                <th className="text-left py-3 px-2 sm:px-4 font-medium text-medium-gray text-sm sm:text-base">
                   Property
                 </th>
-                <th className="text-left py-3 px-4 font-medium text-medium-gray">
-                  Type
-                </th>
-                <th className="text-left py-3 px-4 font-medium text-medium-gray">
+                <th className="text-left py-3 px-2 sm:px-4 font-medium text-medium-gray text-sm sm:text-base">
                   Price
                 </th>
-                <th className="text-left py-3 px-4 font-medium text-medium-gray">
+                <th className="text-left py-3 px-2 sm:px-4 font-medium text-medium-gray text-sm sm:text-base">
                   Status
                 </th>
-                <th className="text-left py-3 px-4 font-medium text-medium-gray">
-                  Created
+                <th className="text-left py-3 px-2 sm:px-4 font-medium text-medium-gray text-sm sm:text-base">
+                  Views
+                </th>
+                <th className="text-left py-3 px-2 sm:px-4 font-medium text-medium-gray text-sm sm:text-base">
+                  Date
                 </th>
               </tr>
             </thead>
             <tbody>
               {recentProperties.map((property) => (
-                <tr key={property._id} className="border-b border-gray-100">
-                  <td className="py-3 px-4">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-light-section-background rounded-lg flex items-center justify-center mr-3">
-                        <FiHome className="w-5 h-5 text-medium-gray" />
+                <tr
+                  key={property._id}
+                  className="border-b border-gray-100 hover:bg-light-section-background transition-colors"
+                >
+                  <td className="py-3 px-2 sm:px-4">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-very-light-blue rounded-lg flex items-center justify-center">
+                        🏠
                       </div>
                       <div>
-                        <p className="font-medium text-primary-dark">
-                          {property.name}
+                        <p className="font-semibold text-primary-dark text-sm sm:text-base line-clamp-1">
+                          {property.title}
                         </p>
-                        <p className="text-sm text-medium-gray">
-                          {property.location?.city}
+                        <p className="text-medium-gray text-xs sm:text-sm">
+                          {property.location?.city}, {property.location?.state}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="py-3 px-4 capitalize text-medium-gray">
-                    {property.propertyType}
-                  </td>
-                  <td className="py-3 px-4 font-semibold text-primary-dark">
+                  <td className="py-3 px-2 sm:px-4 text-sm sm:text-base font-semibold text-primary-dark">
                     {formatPrice(property.price)}
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-2 sm:px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
                         property.status === "available"
                           ? "bg-green-100 text-green-800"
                           : property.status === "sold"
                           ? "bg-red-100 text-red-800"
-                          : property.status === "rented"
-                          ? "bg-blue-100 text-blue-800"
-                          : property.status === "pending"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-gray-100 text-gray-800"
+                          : "bg-yellow-100 text-yellow-800"
                       }`}
                     >
                       {property.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-medium-gray">
+                  <td className="py-3 px-2 sm:px-4 text-sm sm:text-base text-medium-gray">
+                    {property.views || 0}
+                  </td>
+                  <td className="py-3 px-2 sm:px-4 text-sm sm:text-base text-medium-gray">
                     {new Date(property.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
@@ -212,6 +229,14 @@ const AdminDashboard = () => {
             </tbody>
           </table>
         </div>
+
+        {recentProperties.length === 0 && (
+          <div className="text-center py-8 sm:py-12">
+            <p className="text-medium-gray text-sm sm:text-base">
+              No properties found
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
