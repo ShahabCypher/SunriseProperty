@@ -10,6 +10,7 @@ import {
 import Layout from "layouts/Layout";
 import HomePage from "pages/HomePage";
 import AuthPage from "pages/AuthPage";
+import Loader from "components/modules/Loader";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -24,14 +25,7 @@ const App = () => {
 
   // Show loading spinner while initializing auth
   if (!isInitialized && isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-8 h-8 border-2 border-main-gold border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-medium-gray">Loading...</p>
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
