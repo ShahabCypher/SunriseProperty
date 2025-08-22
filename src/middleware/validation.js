@@ -161,8 +161,8 @@ export const validatePropertyCreation = [
 
   body("description")
     .trim()
-    .isLength({ min: 10, max: 2000 })
-    .withMessage("Description must be between 10 and 2000 characters"),
+    .isLength({ min: 10, max: 10000 })
+    .withMessage("Description must be between 10 and 10000 characters"),
 
   body("location.country").trim().notEmpty().withMessage("Country is required"),
 
@@ -283,8 +283,8 @@ export const validatePropertyUpdate = [
   body("description")
     .optional()
     .trim()
-    .isLength({ min: 10, max: 2000 })
-    .withMessage("Description must be between 10 and 2000 characters"),
+    .isLength({ min: 10, max: 10000 })
+    .withMessage("Description must be between 10 and 10000 characters"),
 
   body("location.country")
     .optional()

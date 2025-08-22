@@ -51,6 +51,7 @@ const PropertyCard = ({ property, onUpdate, onDelete }) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: price.currency || "USD",
+      minimumFractionDigits: 0,
     }).format(price.amount);
   };
 
@@ -73,7 +74,7 @@ const PropertyCard = ({ property, onUpdate, onDelete }) => {
       <div className="relative">
         {primaryImage ? (
           <img
-            src={primaryImage.url}
+            src={`${import.meta.env.VITE_API_URL}${primaryImage.url}`}
             alt={property.name}
             className="w-full h-48 object-cover"
           />
