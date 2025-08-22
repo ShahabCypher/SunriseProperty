@@ -7,7 +7,7 @@ const Header = () => {
         <h1 className="text-4xl font-extrabold font-[Playfair_Display] bg-gradient-to-r from-light-gold to-dark-gold text-transparent bg-clip-text drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">
           <Link to="/">Sunrise Property</Link>
         </h1>
-        <div className="flex gap-10 *:hover:text-light-gold *:transition-all *:duration-300">
+        <div className="flex gap-10 text-secondary-dark *:hover:text-light-gold *:transition-all *:duration-300">
           <Link>Home</Link>
           <Link>Properties</Link>
           <Link>Locations</Link>
@@ -15,13 +15,13 @@ const Header = () => {
         </div>
         <div className="flex gap-4">
           <Link
-            to="/signin"
+            to="/auth/signin"
             className="text-dark-gold border-2 border-light-gold px-7 py-5 rounded-full hover:bg-gradient-to-r hover:from-light-gold hover:to-dark-gold hover:text-white transform hover:translate-y-[-5px] transition-all duration-300 ease-in-out"
           >
             Sign In
           </Link>
           <Link
-            to="/signup"
+            to="/auth/signup"
             className="bg-gradient-to-r from-light-gold to-dark-gold text-white text-lg px-7 py-5 rounded-full transform hover:translate-y-[-5px] transition-all duration-300 ease-in-out"
           >
             Sign Up
