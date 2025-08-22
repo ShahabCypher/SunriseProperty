@@ -2,10 +2,10 @@ import PropertCard from "components/modules/PropertCard";
 
 const HandpickedSection = () => {
   return (
-    <section className="w-full bg-light-blue-tint">
+    <section className="w-full bg-light-blue-tint py-20">
       <div className="container mx-auto flex flex-col items-center">
-        <div className="text-xl mt-20 text-medium-gray">
-          HANDPICKED COLLECTION
+        <div className="text-xl text-medium-gray tracking-widest uppercase">
+          Handpicked Collection
         </div>
         <h2 className="text-5xl font-semibold font-[Playfair_Display] text-primary-dark mt-10">
           Featured{" "}
