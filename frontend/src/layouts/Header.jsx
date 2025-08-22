@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="bg-header-background fixed top-0 left-0 right-0 z-50 w-full shadow-lg">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center h-25">
-        <h1 className="text-4xl font-extrabold font-[Playfair_Display] bg-gradient-to-r from-light-gold to-dark-gold text-transparent bg-clip-text">
+        <h1 className="text-4xl font-extrabold font-[Playfair_Display] bg-gradient-to-r from-light-gold to-dark-gold text-transparent bg-clip-text drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">
           <Link to="/">Sunrise Property</Link>
         </h1>
         <div className="flex gap-10 *:hover:text-light-gold *:transition-all *:duration-300">
