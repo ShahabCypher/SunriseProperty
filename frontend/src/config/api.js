@@ -47,7 +47,13 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      originalRequest.url.includes("/auth/refresh-token")
+    ) {
+      TokenManager.clearTokens();
+      return Promise.reject(error);
+    } else if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         // If we're already refreshing, queue this request
         return new Promise((resolve, reject) => {
@@ -89,21 +95,12 @@ api.interceptors.response.use(
 
           // Refresh failed, clear tokens and redirect
           TokenManager.clearTokens();
-
-          if (!window.location.pathname.includes("/auth/")) {
-            window.location.href = "/auth/signin";
-          }
-
           return Promise.reject(refreshError);
         }
       } else {
         // Refresh endpoint called directly, clear tokens and redirect
         isRefreshing = false;
         TokenManager.clearTokens();
-
-        if (!window.location.pathname.includes("/auth/")) {
-          window.location.href = "/auth/signin";
-        }
       }
     }
 
@@ -131,6 +128,7 @@ export const TokenManager = {
 
   clearTokens: () => {
     Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
   },
 
   isAuthenticated: () => {
