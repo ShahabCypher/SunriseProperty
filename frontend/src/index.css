@@ -3,7 +3,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-elegent-white: #fefefe;
   --color-main-gold: #d4af37; /* Primary buttons, logo, luxury text highlights */
   --color-dark-gold: #b8860b; /* Button hover states, secondary accents */
   --color-light-gold: #daa520; /* Interactive hover effects, loading states*/

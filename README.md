@@ -1,4 +1,4 @@
-# PropertyPulse
+# Sunrise Property
 
 ## License
 

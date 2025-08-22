@@ -1,7 +1,7 @@
 {
-  "name": "propertypulse-backend",
+  "name": "sunriseproperty-backend",
   "version": "1.0.0",
-  "description": "PropertyPulse Backend",
+  "description": "Sunrise Property Backend",
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
