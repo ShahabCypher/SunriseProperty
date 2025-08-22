@@ -19,6 +19,7 @@ export const register = asyncHandler(async (req, res) => {
     data: {
       user: result.user,
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     },
   });
 });
@@ -42,6 +43,7 @@ export const login = asyncHandler(async (req, res) => {
     data: {
       user: result.user,
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     },
   });
 });
@@ -72,6 +74,7 @@ export const refreshToken = asyncHandler(async (req, res) => {
     message: "Token refreshed successfully",
     data: {
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
     },
   });
 });

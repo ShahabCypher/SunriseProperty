@@ -1,18 +1,20 @@
 import { useActionState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "services/authService";
+import { useAuth } from "hooks/useAuth";
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const { register, loading, error, clearError } = useAuth();
 
   const [state, formAction, isPending] = useActionState(
     async (prevState, formData) => {
       try {
+        clearError();
+
         const name = formData.get("name");
         const email = formData.get("email");
         const password = formData.get("password");
 
-        // Basic client-side validation
         if (!name || !email || !password) {
           return {
             success: false,
@@ -37,9 +39,8 @@ const SignupForm = () => {
           };
         }
 
-        const result = await authService.register(name, email, password);
+        const result = await register(name, email, password);
 
-        // Small delay to show success message
         setTimeout(() => {
           navigate("/");
         }, 1500);
@@ -50,7 +51,6 @@ const SignupForm = () => {
           error: null,
         };
       } catch (error) {
-        // Handle different types of errors
         let errorMessage = "Registration failed. Please try again.";
 
         if (error.message.includes("fetch")) {
@@ -72,12 +72,19 @@ const SignupForm = () => {
 
   return (
     <>
-      {isPending && (
+      {(isPending || loading) && (
         <div className="text-center text-medium-gray mb-4">
           <div className="flex items-center justify-center gap-2">
             <div className="w-4 h-4 border-2 border-main-gold border-t-transparent rounded-full animate-spin"></div>
             <p>Creating your account...</p>
           </div>
+        </div>
+      )}
+
+      {/* Show Redux auth error if present */}
+      {error && !isPending && (
+        <div className="text-center text-red-600 mb-4 p-3 bg-red-50 rounded-lg">
+          {error}
         </div>
       )}
 
@@ -98,7 +105,7 @@ const SignupForm = () => {
             maxLength={50}
             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold transition-colors"
             placeholder="Enter your full name"
-            disabled={isPending}
+            disabled={isPending || loading}
           />
         </div>
 
@@ -116,7 +123,7 @@ const SignupForm = () => {
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold transition-colors"
             placeholder="Enter your email"
-            disabled={isPending}
+            disabled={isPending || loading}
           />
         </div>
 
@@ -135,7 +142,7 @@ const SignupForm = () => {
             minLength={6}
             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold transition-colors"
             placeholder="Enter your password"
-            disabled={isPending}
+            disabled={isPending || loading}
           />
           <p className="text-xs text-light-gray mt-1">
             Password must be at least 6 characters with uppercase, lowercase,
@@ -157,10 +164,10 @@ const SignupForm = () => {
 
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || loading}
           className="w-full bg-gradient-to-r from-light-gold to-dark-gold text-white px-4 py-3 rounded-md font-medium transform hover:translate-y-[-2px] transition-all duration-300 ease-in-out select-none disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {isPending ? "Creating Account..." : "Sign Up"}
+          {isPending || loading ? "Creating Account..." : "Sign Up"}
         </button>
       </form>
     </>

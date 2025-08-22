@@ -1,4 +1,10 @@
-import { body, param, query, validationResult } from "express-validator";
+import {
+  body,
+  param,
+  query,
+  validationResult,
+  cookie,
+} from "express-validator";
 
 // Handle validation errors
 export const handleValidationErrors = (req, res, next) => {
@@ -513,7 +519,7 @@ export const validateQueryParams = [
 
 // Token validation
 export const validateRefreshToken = [
-  body("refreshToken").notEmpty().withMessage("Refresh token is required"),
+  cookie("refreshToken").notEmpty().withMessage("Refresh token is required"),
 
   handleValidationErrors,
 ];

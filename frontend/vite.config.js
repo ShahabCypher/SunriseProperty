@@ -24,6 +24,7 @@ export default defineConfig({
       pages: "/src/pages",
       services: "/src/services",
       config: "/src/config",
+      store: "/src/store",
     },
   },
 });

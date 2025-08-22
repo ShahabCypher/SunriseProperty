@@ -1,17 +1,19 @@
 import { useActionState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "services/authService";
+import { useAuth } from "hooks/useAuth";
 
 const SigninForm = () => {
   const navigate = useNavigate();
+  const { login, loading, error, clearError } = useAuth();
 
   const [state, formAction, isPending] = useActionState(
     async (prevState, formData) => {
       try {
+        clearError();
+
         const email = formData.get("email");
         const password = formData.get("password");
 
-        // Basic client-side validation
         if (!email || !password) {
           return {
             success: false,
@@ -20,9 +22,8 @@ const SigninForm = () => {
           };
         }
 
-        const result = await authService.login(email, password);
+        const result = await login(email, password);
 
-        // Small delay to show success message
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -33,7 +34,6 @@ const SigninForm = () => {
           error: null,
         };
       } catch (error) {
-        // Handle different types of errors
         let errorMessage = "Login failed. Please try again.";
 
         if (error.message.includes("fetch")) {
@@ -55,7 +55,7 @@ const SigninForm = () => {
 
   return (
     <>
-      {isPending && (
+      {(isPending || loading) && (
         <div className="text-center text-medium-gray mb-4">
           <div className="flex items-center justify-center gap-2">
             <div className="w-4 h-4 border-2 border-main-gold border-t-transparent rounded-full animate-spin"></div>
@@ -64,29 +64,37 @@ const SigninForm = () => {
         </div>
       )}
 
+      {/* Show Redux auth error if present */}
+      {error && !isPending && (
+        <div className="text-center text-red-600 mb-4 p-3 bg-red-50 rounded-lg">
+          {error}
+        </div>
+      )}
+
       <form action={formAction} className="space-y-4">
-        <div className="space-y-2">
+        {/* Email field */}
+        <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-secondary-dark"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Email
+            Email Address
           </label>
           <input
             type="email"
             id="email"
             name="email"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold transition-colors"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-main-gold focus:border-main-gold"
             placeholder="Enter your email"
-            disabled={isPending}
           />
         </div>
 
-        <div className="space-y-2">
+        {/* Password field */}
+        <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-secondary-dark"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Password
           </label>
@@ -95,30 +103,32 @@ const SigninForm = () => {
             id="password"
             name="password"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold transition-colors"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-main-gold focus:border-main-gold"
             placeholder="Enter your password"
-            disabled={isPending}
           />
         </div>
 
+        {/* Error message from form action */}
         {state.error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+          <div className="text-center text-red-600 mb-4 p-3 bg-red-50 rounded-lg">
             {state.error}
           </div>
         )}
 
+        {/* Success message */}
         {state.success && (
-          <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-md text-sm">
+          <div className="text-center text-green-600 mb-4 p-3 bg-green-50 rounded-lg">
             {state.message}
           </div>
         )}
 
+        {/* Submit button */}
         <button
           type="submit"
-          disabled={isPending}
-          className="w-full bg-gradient-to-r from-light-gold to-dark-gold text-white px-4 py-3 rounded-md font-medium transform hover:translate-y-[-2px] transition-all duration-300 ease-in-out select-none disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+          disabled={isPending || loading}
+          className="w-full bg-main-gold text-white py-2 px-4 rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-main-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {isPending ? "Signing In..." : "Sign In"}
+          {isPending || loading ? "Signing In..." : "Sign In"}
         </button>
       </form>
     </>

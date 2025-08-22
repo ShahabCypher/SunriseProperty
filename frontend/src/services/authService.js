@@ -10,8 +10,8 @@ class AuthService {
 
       const { data } = response.data;
 
-      // Store tokens in cookies
-      if (data.accessToken) {
+      // Store both tokens in cookies
+      if (data.accessToken && data.refreshToken) {
         TokenManager.setTokens(data.accessToken, data.refreshToken);
       }
 
@@ -34,8 +34,8 @@ class AuthService {
 
       const { data } = response.data;
 
-      // Store tokens in cookies
-      if (data.accessToken) {
+      // Store both tokens in cookies
+      if (data.accessToken && data.refreshToken) {
         TokenManager.setTokens(data.accessToken, data.refreshToken);
       }
 
@@ -75,23 +75,12 @@ class AuthService {
 
   async refreshToken() {
     try {
-      const refreshToken = TokenManager.getRefreshToken();
-      if (!refreshToken) {
-        throw new Error("No refresh token available");
-      }
-
-      const response = await api.post("/auth/refresh-token", {
-        refreshToken,
-      });
+      const response = await api.post("/auth/refresh-token");
 
       const { data } = response.data;
 
-      // Update tokens
       if (data.accessToken) {
-        TokenManager.setTokens(
-          data.accessToken,
-          data.refreshToken || refreshToken
-        );
+        TokenManager.setTokens(data.accessToken, data.refreshToken);
       }
 
       return response.data;
@@ -108,6 +97,10 @@ class AuthService {
 
   getAccessToken() {
     return TokenManager.getAccessToken();
+  }
+
+  getRefreshToken() {
+    return TokenManager.getRefreshToken();
   }
 
   isAuthenticated() {
