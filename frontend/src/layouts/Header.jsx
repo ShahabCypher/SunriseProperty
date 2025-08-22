@@ -23,9 +23,9 @@ const Header = () => {
         </h1>
         <div className="flex gap-10 text-secondary-dark *:hover:text-light-gold *:transition-all *:duration-300">
           <Link to="/">Home</Link>
-          <Link>Properties</Link>
-          <Link>Locations</Link>
-          <Link>Contact</Link>
+          <Link to="/properties">Properties</Link>
+          <Link to="/locations">Locations</Link>
+          <Link to="/contact">Contact</Link>
         </div>
 
         {/* Authentication Section */}

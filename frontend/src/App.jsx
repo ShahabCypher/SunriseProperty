@@ -9,6 +9,9 @@ import {
 } from "store/slices/authSlice";
 import Layout from "layouts/Layout";
 import HomePage from "pages/HomePage";
+import PropertiesPage from "pages/PropertiesPage";
+import LocationsPage from "pages/LocationsPage";
+import ContactPage from "pages/ContactPage";
 import AuthPage from "pages/AuthPage";
 import AdminPanel from "pages/AdminPanel";
 import Loader from "components/modules/Loader";
@@ -39,6 +42,9 @@ const App = () => {
             <Layout>
               <Routes>
                 <Route index element={<HomePage />} />
+                <Route path="properties" element={<PropertiesPage />} />
+                <Route path="locations" element={<LocationsPage />} />
+                <Route path="contact" element={<ContactPage />} />
                 <Route path="auth/:type" element={<AuthPage />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
