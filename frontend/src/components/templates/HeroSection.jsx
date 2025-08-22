@@ -2,8 +2,8 @@ import SearchForm from "components/modules/SearchForm";
 
 const HeroSection = () => {
   return (
-    <section className="w-full">
-      <div className="bg-[url('/images/hero-bg.jpg')] bg-center bg-cover h-[calc(100vh-6.25rem)]">
+    <section className="w-full mt-[-6.25rem]">
+      <div className="bg-[url('/images/hero-bg.jpg')] bg-center bg-cover h-screen">
         <div className="container mx-auto flex flex-col items-center justify-center h-full">
           {/* Card */}
           <div className="flex flex-col items-center w-3/5 bg-off-white/65 backdrop-blur-sm rounded-lg p-10 text-center shadow-[0_0_10px_rgba(0,0,0,0.2)]">

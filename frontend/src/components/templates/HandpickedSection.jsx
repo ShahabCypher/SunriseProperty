@@ -1,3 +1,5 @@
+import PropertCard from "components/modules/PropertCard";
+
 const HandpickedSection = () => {
   return (
     <section className="w-full bg-light-blue-tint">
@@ -16,6 +18,11 @@ const HandpickedSection = () => {
           Discover our curated selection of the most prestigious waterfront
           properties in the world's most desirable coastal destinations
         </p>
+        <div className="grid grid-cols-3 gap-15 mt-10 px-10">
+          <PropertCard />
+          <PropertCard />
+          <PropertCard />
+        </div>
       </div>
     </section>
   );
