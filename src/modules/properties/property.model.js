@@ -33,17 +33,27 @@ const propertySchema = new mongoose.Schema(
         trim: true,
       },
       coordinates: {
-        latitude: {
-          type: Number,
-          required: [true, "Latitude is required"],
-          min: [-90, "Latitude must be between -90 and 90"],
-          max: [90, "Latitude must be between -90 and 90"],
+        type: {
+          type: String,
+          enum: ["Point"],
+          default: "Point",
         },
-        longitude: {
-          type: Number,
-          required: [true, "Longitude is required"],
-          min: [-180, "Longitude must be between -180 and 180"],
-          max: [180, "Longitude must be between -180 and 180"],
+        coordinates: {
+          type: [Number],
+          required: [true, "Coordinates are required"],
+          validate: {
+            validator: function (coords) {
+              return (
+                coords.length === 2 &&
+                coords[0] >= -180 &&
+                coords[0] <= 180 && // longitude
+                coords[1] >= -90 &&
+                coords[1] <= 90
+              ); // latitude
+            },
+            message:
+              "Coordinates must be [longitude, latitude] with valid ranges",
+          },
         },
       },
     },
@@ -207,10 +217,6 @@ const propertySchema = new mongoose.Schema(
 
 // Indexes for performance
 propertySchema.index({ "location.country": 1, "location.city": 1 });
-propertySchema.index({
-  "location.coordinates.latitude": 1,
-  "location.coordinates.longitude": 1,
-});
 propertySchema.index({ status: 1 });
 propertySchema.index({ propertyType: 1 });
 propertySchema.index({ "price.amount": 1 });

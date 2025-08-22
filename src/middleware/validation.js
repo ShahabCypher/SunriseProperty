@@ -23,6 +23,45 @@ export const handleValidationErrors = (req, res, next) => {
   next();
 };
 
+// Preprocess property data from FormData
+export const preprocessPropertyData = (req, res, next) => {
+  try {
+    // Parse coordinates if they come as JSON string from FormData
+    if (req.body["location.coordinates.coordinates"]) {
+      const coordsString = req.body["location.coordinates.coordinates"];
+      if (typeof coordsString === "string") {
+        try {
+          const coords = JSON.parse(coordsString);
+          // Restructure the coordinates for validation and MongoDB
+          if (!req.body.location) req.body.location = {};
+          req.body.location.coordinates = {
+            type: req.body["location.coordinates.type"] || "Point",
+            coordinates: coords,
+          };
+
+          // Clean up the flat FormData fields
+          delete req.body["location.coordinates.coordinates"];
+          delete req.body["location.coordinates.type"];
+        } catch (error) {
+          return res.status(400).json({
+            success: false,
+            message: "Invalid coordinates format",
+            error: error.message,
+          });
+        }
+      }
+    }
+
+    next();
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Error processing property data",
+      error: error.message,
+    });
+  }
+};
+
 // User registration validation
 export const validateUserRegistration = [
   body("name")
@@ -131,13 +170,31 @@ export const validatePropertyCreation = [
 
   body("location.address").trim().notEmpty().withMessage("Address is required"),
 
-  body("location.coordinates.latitude")
-    .isFloat({ min: -90, max: 90 })
-    .withMessage("Latitude must be between -90 and 90"),
+  body("location.coordinates.coordinates")
+    .isArray({ min: 2, max: 2 })
+    .withMessage("Coordinates must be an array with exactly 2 elements")
+    .custom((coords) => {
+      if (!Array.isArray(coords) || coords.length !== 2) {
+        throw new Error("Coordinates must be [longitude, latitude]");
+      }
+      const [longitude, latitude] = coords;
+      if (
+        typeof longitude !== "number" ||
+        longitude < -180 ||
+        longitude > 180
+      ) {
+        throw new Error("Longitude must be between -180 and 180");
+      }
+      if (typeof latitude !== "number" || latitude < -90 || latitude > 90) {
+        throw new Error("Latitude must be between -90 and 90");
+      }
+      return true;
+    }),
 
-  body("location.coordinates.longitude")
-    .isFloat({ min: -180, max: 180 })
-    .withMessage("Longitude must be between -180 and 180"),
+  body("location.coordinates.type")
+    .optional()
+    .equals("Point")
+    .withMessage("Coordinate type must be 'Point'"),
 
   body("price.amount")
     .isFloat({ min: 0 })
@@ -247,15 +304,32 @@ export const validatePropertyUpdate = [
     .notEmpty()
     .withMessage("Address cannot be empty"),
 
-  body("location.coordinates.latitude")
+  body("location.coordinates.coordinates")
     .optional()
-    .isFloat({ min: -90, max: 90 })
-    .withMessage("Latitude must be between -90 and 90"),
+    .isArray({ min: 2, max: 2 })
+    .withMessage("Coordinates must be an array with exactly 2 elements")
+    .custom((coords) => {
+      if (!Array.isArray(coords) || coords.length !== 2) {
+        throw new Error("Coordinates must be [longitude, latitude]");
+      }
+      const [longitude, latitude] = coords;
+      if (
+        typeof longitude !== "number" ||
+        longitude < -180 ||
+        longitude > 180
+      ) {
+        throw new Error("Longitude must be between -180 and 180");
+      }
+      if (typeof latitude !== "number" || latitude < -90 || latitude > 90) {
+        throw new Error("Latitude must be between -90 and 90");
+      }
+      return true;
+    }),
 
-  body("location.coordinates.longitude")
+  body("location.coordinates.type")
     .optional()
-    .isFloat({ min: -180, max: 180 })
-    .withMessage("Longitude must be between -180 and 180"),
+    .equals("Point")
+    .withMessage("Coordinate type must be 'Point'"),
 
   body("price.amount")
     .optional()

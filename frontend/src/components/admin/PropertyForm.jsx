@@ -22,8 +22,12 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
       country: property?.location?.country || "",
       zipCode: property?.location?.zipCode || "",
       coordinates: {
-        latitude: property?.location?.coordinates?.latitude || "",
-        longitude: property?.location?.coordinates?.longitude || "",
+        latitude: property?.location?.coordinates?.coordinates
+          ? property.location.coordinates.coordinates[1]
+          : property?.location?.coordinates?.latitude || "",
+        longitude: property?.location?.coordinates?.coordinates
+          ? property.location.coordinates.coordinates[0]
+          : property?.location?.coordinates?.longitude || "",
       },
     },
     details: {
@@ -151,8 +155,11 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
         location: {
           ...formData.location,
           coordinates: {
-            latitude: parseFloat(formData.location.coordinates.latitude) || 0,
-            longitude: parseFloat(formData.location.coordinates.longitude) || 0,
+            type: "Point",
+            coordinates: [
+              parseFloat(formData.location.coordinates.longitude) || 0,
+              parseFloat(formData.location.coordinates.latitude) || 0,
+            ],
           },
         },
       };
@@ -183,12 +190,12 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
           propertyData.location.zipCode || ""
         );
         submitData.append(
-          "location.coordinates.latitude",
-          propertyData.location.coordinates.latitude
+          "location.coordinates.type",
+          propertyData.location.coordinates.type
         );
         submitData.append(
-          "location.coordinates.longitude",
-          propertyData.location.coordinates.longitude
+          "location.coordinates.coordinates",
+          JSON.stringify(propertyData.location.coordinates.coordinates)
         );
 
         // Details fields

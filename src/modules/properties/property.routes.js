@@ -11,6 +11,7 @@ import {
   validatePropertyStatusUpdate,
   validatePropertyQuery,
   validateObjectId,
+  preprocessPropertyData,
 } from "../../middleware/validation.js";
 import { uploadMultiple, handleUploadError } from "../../middleware/upload.js";
 
@@ -68,6 +69,7 @@ router.post(
   "/",
   uploadMultiple,
   handleUploadError,
+  preprocessPropertyData,
   validatePropertyCreation,
   propertyController.createProperty
 );
@@ -76,6 +78,7 @@ router.post(
 router.put(
   "/:id",
   validateObjectId("id"),
+  preprocessPropertyData,
   validatePropertyUpdate,
   propertyController.updateProperty
 );
