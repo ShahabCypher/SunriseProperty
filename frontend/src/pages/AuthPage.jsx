@@ -1,12 +1,19 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 
-import SigninForm from "src/components/templates/SigninForm";
-import SignupForm from "src/components/templates/SignupForm";
+import SigninForm from "components/templates/SigninForm";
+import SignupForm from "components/templates/SignupForm";
+import { useAppSelector } from "store/hooks";
+import { selectIsAuthenticated } from "store/slices/authSlice";
 
 const AuthPage = () => {
   const { type } = useParams();
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   if (type !== "signin" && type !== "signup") {
+    return <Navigate to="/" />;
+  }
+
+  if (isAuthenticated) {
     return <Navigate to="/" />;
   }
 
