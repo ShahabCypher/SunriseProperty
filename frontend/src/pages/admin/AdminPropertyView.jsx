@@ -103,7 +103,7 @@ const AdminPropertyView = () => {
                 {property.images.map((image, index) => (
                   <div key={index} className="relative">
                     <img
-                      src={image.url}
+                      src={`${import.meta.env.VITE_API_URL}${image.url}`}
                       alt={image.alt || `${property.name} image ${index + 1}`}
                       className="w-full h-32 object-cover rounded-lg"
                     />
