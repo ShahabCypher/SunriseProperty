@@ -5,8 +5,8 @@ import { PiHouseLineLight } from "react-icons/pi";
 
 const Footer = () => {
   return (
-    <div className="bg-primary-dark py-20">
-      <div className="container mx-auto flex flex-wrap justify-between px-15 *:w-100">
+    <div className="bg-primary-dark pb-20">
+      <div className="container mx-auto flex flex-wrap justify-between px-15 *:w-100 *:mt-20">
         <div>
           <h5 className="text-main-gold text-2xl font-[Playfair_Display] font-[500]">
             Sunrise Property
