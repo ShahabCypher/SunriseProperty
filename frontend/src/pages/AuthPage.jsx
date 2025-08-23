@@ -21,7 +21,7 @@ const AuthPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-off-white to-light-blue-tint flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         {/* Auth Card */}
-        <div className="bg-pure-white rounded-2xl shadow-2xl border border-white/50 p-6 sm:p-8 lg:p-10">
+        <div className="bg-pure-white rounded-2xl shadow-2xl border border-white/50 p-6 sm:p-8 lg:p-10 mt-[-100px] md:mt-0">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-dark font-[Playfair_Display]">
@@ -53,26 +53,6 @@ const AuthPage = () => {
               </Link>
             </p>
           </div>
-        </div>
-
-        {/* Bottom Text */}
-        <div className="text-center">
-          <p className="text-xs sm:text-sm text-medium-gray">
-            By continuing, you agree to our{" "}
-            <a
-              href="#"
-              className="text-main-gold hover:text-dark-gold transition-colors duration-200"
-            >
-              Terms of Service
-            </a>{" "}
-            and{" "}
-            <a
-              href="#"
-              className="text-main-gold hover:text-dark-gold transition-colors duration-200"
-            >
-              Privacy Policy
-            </a>
-          </p>
         </div>
       </div>
     </div>
