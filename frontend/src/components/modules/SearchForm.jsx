@@ -1,4 +1,19 @@
-const SearchForm = () => {
+import { useNavigate } from "react-router-dom";
+
+const SearchForm = ({ filters, setFilters }) => {
+  const navigate = useNavigate();
+
+  const clickHandler = () => {
+    setFilters((prev) => ({
+      ...prev,
+      city: document.getElementById("location").value,
+      propertyType: document.getElementById("propertyType").value,
+      minPrice: document.getElementById("priceRange").value,
+    }));
+
+    navigate("/properties");
+  };
+
   return (
     <div className="w-full max-w-6xl mx-auto">
       <div className="bg-pure-white/90 sm:bg-off-white/75 backdrop-blur-md rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-white/20">
@@ -16,12 +31,12 @@ const SearchForm = () => {
               id="location"
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
-              <option value="all">Select City</option>
-              <option value="miami">🏖️ Miami, FL</option>
-              <option value="los-angeles">🌴 Los Angeles, CA</option>
-              <option value="dubai">🏝️ Dubai, UAE</option>
-              <option value="malibu">🌊 Malibu, CA</option>
-              <option value="beverly-hills">🏛️ Beverly Hills, CA</option>
+              <option value="">Select City</option>
+              <option value="Miami">🏖️ Miami, FL</option>
+              <option value="Los Angeles">🌴 Los Angeles, CA</option>
+              <option value="Dubai">🏝️ Dubai, UAE</option>
+              <option value="Malibu">🌊 Malibu, CA</option>
+              <option value="Beverly Hills">🏛️ Beverly Hills, CA</option>
             </select>
           </div>
 
@@ -38,11 +53,13 @@ const SearchForm = () => {
               id="propertyType"
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
-              <option value="all">All Luxury Types</option>
-              <option value="beachfront">Beachfront</option>
+              <option value="">All Luxury Types</option>
+              <option value="house">House</option>
+              <option value="apartment">Apartment</option>
+              <option value="condo">Condo</option>
+              <option value="townhouse">Townhouse</option>
               <option value="villa">Villa</option>
-              <option value="mansion">Mansion</option>
-              <option value="penthouse">Penthouse</option>
+              <option value="studio">Studio</option>
             </select>
           </div>
 
@@ -59,18 +76,21 @@ const SearchForm = () => {
               id="priceRange"
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
-              <option value="all">Luxury Budget</option>
-              <option value="1000000-3000000">$1M - $3M</option>
-              <option value="3000000-7000000">$3M - $7M</option>
-              <option value="7000000-15000000">$7M - $15M</option>
-              <option value="15000000+">$15M+</option>
+              <option value="">Luxury Budget</option>
+              <option value="5000000">$5M+</option>
+              <option value="10000000">$10M+</option>
+              <option value="20000000">$20M+</option>
+              <option value="50000000">$50M+</option>
             </select>
           </div>
         </div>
 
         {/* Search Button */}
         <div className="mt-6 sm:mt-8 flex justify-center">
-          <button className="w-full sm:w-auto bg-gradient-to-r from-light-gold to-dark-gold text-white text-sm sm:text-base lg:text-lg font-bold px-6 sm:px-8 lg:px-12 py-3 sm:py-4 rounded-lg transform hover:translate-y-[-3px] hover:shadow-xl transition-all duration-300 ease-in-out min-w-[200px]">
+          <button
+            onClick={clickHandler}
+            className="w-full sm:w-auto bg-gradient-to-r from-light-gold to-dark-gold text-white text-sm sm:text-base lg:text-lg font-bold px-6 sm:px-8 lg:px-12 py-3 sm:py-4 rounded-lg transform hover:translate-y-[-3px] hover:shadow-xl transition-all duration-300 ease-in-out min-w-[200px]"
+          >
             Explore Properties
           </button>
         </div>

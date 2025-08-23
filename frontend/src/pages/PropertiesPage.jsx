@@ -13,7 +13,7 @@ import PropertyService from "services/propertyService";
 import PropertyCard from "components/public/PropertyCard";
 import PropertyModal from "components/public/PropertyModal";
 
-const PropertiesPage = () => {
+const PropertiesPage = ({ filters, setFilters }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
@@ -22,19 +22,6 @@ const PropertiesPage = () => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
-
-  // Initialize filters with city from location state if available
-  const [filters, setFilters] = useState({
-    search: "",
-    city: location.state?.filterCity || "",
-    propertyType: "",
-    minPrice: "",
-    maxPrice: "",
-    sortBy: "createdAt",
-    sortOrder: "desc",
-    page: 1,
-    limit: 12,
-  });
 
   const cities = ["Los Angeles", "Dubai", "Miami"];
   const propertyTypes = [

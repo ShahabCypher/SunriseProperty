@@ -1,6 +1,6 @@
 import SearchForm from "components/modules/SearchForm";
 
-const HeroSection = () => {
+const HeroSection = ({ filters, setFilters }) => {
   return (
     <section className="w-full">
       <div className="bg-[url('/images/hero-bg.jpg')] bg-center bg-cover min-h-screen md:h-fit pb-5 md:py-15">
@@ -22,7 +22,7 @@ const HeroSection = () => {
           </div>
 
           <div className="w-[90%] mt-10 md:mt-20">
-            <SearchForm />
+            <SearchForm filters={filters} setFilters={setFilters} />
           </div>
         </div>
       </div>

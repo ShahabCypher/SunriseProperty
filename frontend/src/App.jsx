@@ -24,6 +24,18 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [properties, setProperties] = useState([]);
 
+  const [filters, setFilters] = useState({
+    search: "",
+    city: location.state?.filterCity || "",
+    propertyType: "",
+    minPrice: "",
+    maxPrice: "",
+    sortBy: "createdAt",
+    sortOrder: "desc",
+    page: 1,
+    limit: 12,
+  });
+
   useEffect(() => {
     if (!isInitialized) {
       dispatch(initializeAuth());
@@ -32,7 +44,7 @@ const App = () => {
     loadProperties();
   }, [dispatch, isInitialized]);
 
-  const filters = {
+  const hpfilters = {
     sortBy: "price.amount",
     sortOrder: "desc",
     page: 1,
@@ -43,7 +55,7 @@ const App = () => {
     setLoading(true);
     try {
       const cleanFilters = Object.fromEntries(
-        Object.entries(filters).filter(([key, value]) => value !== "")
+        Object.entries(hpfilters).filter(([key, value]) => value !== "")
       );
 
       const response = await PropertyService.getAllProperties(cleanFilters);
@@ -69,8 +81,22 @@ const App = () => {
           element={
             <Layout>
               <Routes>
-                <Route index element={<HomePage properties={properties} />} />
-                <Route path="properties" element={<PropertiesPage />} />
+                <Route
+                  index
+                  element={
+                    <HomePage
+                      properties={properties}
+                      filters={filters}
+                      setFilters={setFilters}
+                    />
+                  }
+                />
+                <Route
+                  path="properties"
+                  element={
+                    <PropertiesPage filters={filters} setFilters={setFilters} />
+                  }
+                />
                 <Route path="locations" element={<LocationsPage />} />
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="auth/:type" element={<AuthPage />} />
