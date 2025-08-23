@@ -138,7 +138,7 @@ const LocationsPage = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white bg-gradient-to-b from-transparent to-black/50 glow">
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white bg-gradient-to-b from-transparent to-black/50 text-shadow-[0_0_80px_#000]">
           <h3 className="text-lg sm:text-xl lg:text-2xl font-bold font-[Playfair_Display] mb-1 sm:mb-2">
             {location.name}
           </h3>
@@ -184,7 +184,7 @@ const LocationsPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 p-2 rounded-lg z-20 h-full w-full"></div>
           <button
             onClick={onClose}
-            className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-overlay-white backdrop-blur-sm p-1 sm:p-2 rounded-full hover:bg-white transition-colors glow z-30"
+            className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-overlay-white backdrop-blur-sm p-1 sm:p-2 rounded-full hover:bg-white transition-colors text-shadow-[0_0_80px_#000] z-30"
           >
             <IoMdClose className="w-5 h-5 sm:w-6 sm:h-6 text-primary-dark" />
           </button>

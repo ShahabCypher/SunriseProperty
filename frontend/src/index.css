@@ -158,8 +158,3 @@
   -webkit-box-orient: vertical;
   line-clamp: 2;
 }
-
-.glow {
-  text-shadow: 0 0 20px #000, 0 0 30px #000, 0 0 40px #000, 0 0 50px #000,
-    0 0 60px #000, 0 0 70px #000, 0 0 80px #000;
-}
