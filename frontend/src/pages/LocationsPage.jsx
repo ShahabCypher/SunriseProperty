@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FiMapPin,
   FiStar,
   FiTrendingUp,
   FiHome,
@@ -10,6 +9,7 @@ import {
   FiShield,
   FiAward,
 } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 
 const LocationsPage = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -173,17 +173,22 @@ const LocationsPage = () => {
   );
 
   const LocationModal = ({ location, onClose }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-0 sm:p-4">
       <div className="bg-pure-white rounded-none sm:rounded-lg max-w-none sm:max-w-4xl w-full h-full sm:h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="relative h-48 sm:h-64 bg-gradient-to-br from-ocean-blue to-teal-turquoise">
+          <img
+            src={`/images/${location.name.toLowerCase().replace(" ", "-")}.jpg`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 p-2 rounded-lg z-20 h-full w-full"></div>
           <button
             onClick={onClose}
-            className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-overlay-white backdrop-blur-sm p-1 sm:p-2 rounded-full hover:bg-white transition-colors"
+            className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-overlay-white backdrop-blur-sm p-1 sm:p-2 rounded-full hover:bg-white transition-colors glow z-30"
           >
-            <FiMapPin className="w-5 h-5 sm:w-6 sm:h-6 text-primary-dark" />
+            <IoMdClose className="w-5 h-5 sm:w-6 sm:h-6 text-primary-dark" />
           </button>
-          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white text-shadow-[0_0_10px_rgba(0,0,0,1)] z-30">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] mb-1 sm:mb-2">
               {location.name}
             </h1>
