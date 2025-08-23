@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   FiSearch,
   FiFilter,
@@ -7,13 +7,12 @@ import {
   FiList,
   FiMapPin,
   FiHome,
-  FiStar,
 } from "react-icons/fi";
 import PropertyService from "services/propertyService";
 import PropertyCard from "components/public/PropertyCard";
 import PropertyModal from "components/public/PropertyModal";
 
-const PropertiesPage = ({ filters, setFilters }) => {
+const PropertiesPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
@@ -22,6 +21,42 @@ const PropertiesPage = ({ filters, setFilters }) => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
+
+  const initialFilters = {
+    search: "",
+    city: location.state?.filterCity || "",
+    propertyType: "",
+    minPrice: "",
+    maxPrice: "",
+    sortBy: "createdAt",
+    sortOrder: "desc",
+    page: 1,
+    limit: 12,
+  };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  searchParams.forEach((value, key) => {
+    initialFilters[key] = value;
+  });
+
+  const [filters, setFilters] = useState(initialFilters);
+
+  const resetFilterHandler = () => {
+    setFilters({
+      search: "",
+      city: location.state?.filterCity || "",
+      propertyType: "",
+      minPrice: "",
+      maxPrice: "",
+      sortBy: "createdAt",
+      sortOrder: "desc",
+      page: 1,
+      limit: 12,
+    });
+    setSearchParams({});
+
+    loadProperties(true);
+  };
 
   const cities = ["Los Angeles", "Dubai", "Miami"];
   const propertyTypes = [
@@ -33,10 +68,6 @@ const PropertiesPage = ({ filters, setFilters }) => {
     "studio",
   ];
 
-  useEffect(() => {
-    loadProperties();
-  }, [filters]);
-
   // Handle city filter from location state
   useEffect(() => {
     if (location.state?.filterCity) {
@@ -47,12 +78,23 @@ const PropertiesPage = ({ filters, setFilters }) => {
     }
   }, [location.state]);
 
-  const loadProperties = async () => {
+  useEffect(() => {
+    loadProperties();
+  }, []);
+
+  const searchHandler = () => {
+    loadProperties();
+  };
+
+  const loadProperties = async (noFilter = false) => {
     setLoading(true);
     try {
-      const cleanFilters = Object.fromEntries(
-        Object.entries(filters).filter(([key, value]) => value !== "")
-      );
+      let cleanFilters = {};
+      if (!noFilter) {
+        cleanFilters = Object.fromEntries(
+          Object.entries(filters).filter(([key, value]) => value !== "")
+        );
+      }
 
       const response = await PropertyService.getAllProperties(cleanFilters);
       setProperties(response.data.properties);
@@ -65,11 +107,34 @@ const PropertiesPage = ({ filters, setFilters }) => {
   };
 
   const handleFilterChange = (key, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: 1,
-    }));
+    if (key === "byOrder") {
+      setFilters((prev) => ({
+        ...prev,
+        ...value,
+        page: 1,
+      }));
+
+      const { sortBy, sortOrder } = value;
+      setSearchParams((prev) => {
+        prev.set("sortBy", sortBy);
+        prev.set("sortOrder", sortOrder);
+        return prev;
+      });
+    } else {
+      setFilters((prev) => ({
+        ...prev,
+        [key]: value,
+        page: 1,
+      }));
+
+      setSearchParams((prev) => {
+        prev.set(key, value);
+        if (value === "") {
+          prev.delete(key);
+        }
+        return prev;
+      });
+    }
   };
 
   const handlePropertyClick = (property) => {
@@ -227,8 +292,7 @@ const PropertiesPage = ({ filters, setFilters }) => {
               value={`${filters.sortBy}-${filters.sortOrder}`}
               onChange={(e) => {
                 const [sortBy, sortOrder] = e.target.value.split("-");
-                handleFilterChange("sortBy", sortBy);
-                handleFilterChange("sortOrder", sortOrder);
+                handleFilterChange("byOrder", { sortBy, sortOrder });
               }}
               className="px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold text-sm sm:text-base"
             >
@@ -240,17 +304,18 @@ const PropertiesPage = ({ filters, setFilters }) => {
           </div>
 
           {/* View Mode Toggle */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+          <div className="flex flex-row items-center justify-between sm:justify-start flex-wrap gap-3 w-full">
             <div className="text-medium-gray text-sm sm:text-base">
-              {pagination.total || 0} properties found
+              {pagination.totalCount || 0} properties found
               {filters.city && (
                 <span className="ml-2 text-main-gold">in {filters.city}</span>
               )}
             </div>
-            <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden self-start sm:self-auto">
+            <div className="hidden sm:flex items-center border border-gray-300 rounded-lg overflow-hidden self-start sm:self-auto *:disabled:opacity-50 *:disabled:cursor-not-allowed">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 sm:p-2.5 ${
+                disabled={loading}
+                className={`p-2 sm:p-4 ${
                   viewMode === "grid"
                     ? "bg-main-gold text-pure-white"
                     : "bg-pure-white text-medium-gray hover:bg-gray-50"
@@ -260,13 +325,32 @@ const PropertiesPage = ({ filters, setFilters }) => {
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 sm:p-2.5 ${
+                disabled={loading}
+                className={`p-2 sm:p-4 ${
                   viewMode === "list"
                     ? "bg-main-gold text-pure-white"
                     : "bg-pure-white text-medium-gray hover:bg-gray-50"
                 }`}
               >
                 <FiList className="w-4 h-4" />
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() => resetFilterHandler()}
+                disabled={loading}
+                className="bg-main-gold hover:bg-dark-gold text-pure-white px-5 sm:px-8 py-3 rounded-lg font-medium transition-colors text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Reset Filters
+              </button>
+            </div>
+            <div className="w-full sm:w-auto sm:flex-grow">
+              <button
+                onClick={() => searchHandler()}
+                disabled={loading}
+                className="w-full bg-main-gold hover:bg-dark-gold text-pure-white px-6 py-3 rounded-lg font-medium transition-colors text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Search
               </button>
             </div>
           </div>

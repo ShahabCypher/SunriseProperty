@@ -24,24 +24,10 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [properties, setProperties] = useState([]);
 
-  const [filters, setFilters] = useState({
-    search: "",
-    city: location.state?.filterCity || "",
-    propertyType: "",
-    minPrice: "",
-    maxPrice: "",
-    sortBy: "createdAt",
-    sortOrder: "desc",
-    page: 1,
-    limit: 12,
-  });
-
   useEffect(() => {
     if (!isInitialized) {
       dispatch(initializeAuth());
     }
-
-    loadProperties();
   }, [dispatch, isInitialized]);
 
   const hpfilters = {
@@ -81,22 +67,8 @@ const App = () => {
           element={
             <Layout>
               <Routes>
-                <Route
-                  index
-                  element={
-                    <HomePage
-                      properties={properties}
-                      filters={filters}
-                      setFilters={setFilters}
-                    />
-                  }
-                />
-                <Route
-                  path="properties"
-                  element={
-                    <PropertiesPage filters={filters} setFilters={setFilters} />
-                  }
-                />
+                <Route index element={<HomePage properties={properties} />} />
+                <Route path="properties" element={<PropertiesPage />} />
                 <Route path="locations" element={<LocationsPage />} />
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="auth/:type" element={<AuthPage />} />

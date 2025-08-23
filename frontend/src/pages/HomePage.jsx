@@ -3,10 +3,10 @@ import HandpickedSection from "components/templates/HandpickedSection";
 import LocationsSection from "components/templates/LocationsSection";
 import CounterSection from "components/templates/CounterSection";
 
-const HomePage = ({ properties, filters, setFilters }) => {
+const HomePage = ({ properties }) => {
   return (
     <>
-      <HeroSection filters={filters} setFilters={setFilters} />
+      <HeroSection />
       <HandpickedSection properties={properties} />
       <LocationsSection />
       <CounterSection />
