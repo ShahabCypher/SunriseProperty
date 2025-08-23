@@ -395,7 +395,7 @@ const LocationsPage = () => {
         </div>
 
         {/* Why Choose Sunrise Property */}
-        <div className="bg-pure-white rounded-xl p-6 sm:p-8 shadow-lg mb-12 sm:mb-16">
+        <div className="bg-pure-white rounded-xl p-6 sm:p-8 shadow-[0_0_15px_rgba(0,0,0,0.1)] mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold font-[Playfair_Display] text-primary-dark text-center mb-6 sm:mb-8">
             Why Choose Sunrise Property for Coastal Investments?
           </h2>
