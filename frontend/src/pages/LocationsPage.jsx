@@ -132,8 +132,13 @@ const LocationsPage = () => {
       onClick={() => onClick(location)}
     >
       <div className="aspect-[4/3] bg-gradient-to-br from-ocean-blue to-teal-turquoise relative">
-        <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-20 transition-all duration-300"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white">
+        <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-20 transition-all duration-300">
+          <img
+            src={`/images/${location.name.toLowerCase().replace(" ", "-")}.jpg`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white bg-gradient-to-b from-transparent to-black/50 glow">
           <h3 className="text-lg sm:text-xl lg:text-2xl font-bold font-[Playfair_Display] mb-1 sm:mb-2">
             {location.name}
           </h3>
