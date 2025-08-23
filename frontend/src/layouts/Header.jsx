@@ -56,24 +56,24 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-            <nav className="flex space-x-4 lg:space-x-6 xl:space-x-8">
-              {[
-                { to: "/", label: "Home" },
-                { to: "/properties", label: "Properties" },
-                { to: "/locations", label: "Locations" },
-                { to: "/contact", label: "Contact" },
-              ].map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="text-sm lg:text-base text-secondary-dark hover:text-light-gold transition-all duration-300 font-medium"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+          <nav className="hidden md:flex space-x-4 lg:space-x-6 xl:space-x-8">
+            {[
+              { to: "/", label: "Home" },
+              { to: "/properties", label: "Properties" },
+              { to: "/locations", label: "Locations" },
+              { to: "/contact", label: "Contact" },
+            ].map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-sm lg:text-base text-secondary-dark hover:text-light-gold transition-all duration-300 font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
+          <div className="hidden md:flex items-center justify-between space-x-4 lg:space-x-8">
             {/* Desktop Authentication */}
             <div className="flex items-center space-x-3">
               {loading ? (
