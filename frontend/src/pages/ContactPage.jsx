@@ -132,7 +132,7 @@ const ContactPage = () => {
 
           <button
             onClick={scrollToForm}
-            className="mt-8 sm:mt-10 bg-main-gold hover:bg-dark-gold text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-full transform hover:translate-y-[-2px] transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="mt-8 sm:mt-10 bg-main-gold hover:bg-dark-gold text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-full transform hover:translate-y-[-2px] transition-all duration-300 shadow-[0_0_10px_rgba(0,0,0,0.1)] hover:shadow-xl"
           >
             Start Conversation
           </button>
@@ -147,7 +147,7 @@ const ContactPage = () => {
             return (
               <div
                 key={index}
-                className="bg-pure-white p-6 sm:p-8 lg:p-10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-center group hover:transform hover:translate-y-[-4px]"
+                className="bg-pure-white p-6 sm:p-8 lg:p-10 rounded-2xl shadow-[0_0_10px_rgba(0,0,0,0.1)] hover:shadow-xl transition-all duration-300 text-center group hover:transform hover:translate-y-[-4px]"
               >
                 <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-main-gold to-dark-gold rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                   <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white" />
@@ -173,11 +173,11 @@ const ContactPage = () => {
           })}
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:gap-16">
           {/* Contact Form */}
           <div
             id="contact-form"
-            className="bg-pure-white p-6 sm:p-8 lg:p-10 rounded-2xl shadow-lg order-2 xl:order-1"
+            className="bg-pure-white p-6 sm:p-8 lg:p-10 rounded-2xl shadow-[0_0_10px_rgba(0,0,0,0.1)] order-2"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] text-primary-dark mb-6 sm:mb-8">
               Send us a Message
@@ -311,7 +311,7 @@ const ContactPage = () => {
           </div>
 
           {/* Office Information */}
-          <div className="order-1 xl:order-2">
+          <div className="order-1">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] text-primary-dark mb-6 sm:mb-8">
               Our Offices
             </h2>
@@ -320,7 +320,7 @@ const ContactPage = () => {
               {offices.map((office, index) => (
                 <div
                   key={index}
-                  className="bg-pure-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  className="bg-pure-white p-6 sm:p-8 rounded-2xl shadow-[0_0_10px_rgba(0,0,0,0.1)] hover:shadow-xl transition-all duration-300 border border-gray-100"
                 >
                   <div className="flex items-start justify-between mb-4 sm:mb-6">
                     <div className="flex-1">
@@ -372,7 +372,7 @@ const ContactPage = () => {
         </div>
 
         {/* Company Information */}
-        <div className="mt-16 sm:mt-20 lg:mt-24 bg-pure-white p-8 sm:p-10 lg:p-12 rounded-2xl shadow-lg">
+        <div className="mt-16 sm:mt-20 lg:mt-24 bg-pure-white p-8 sm:p-10 lg:p-12 rounded-2xl shadow-[0_0_10px_rgba(0,0,0,0.1)]">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] text-primary-dark mb-8 sm:mb-10 lg:mb-12 text-center">
             About Sunrise Property
           </h2>
