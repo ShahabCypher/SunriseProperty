@@ -54,8 +54,8 @@ const PropertyModal = ({ property, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-0">
-      <div className="bg-pure-white rounded-none sm:rounded-lg max-w-none sm:max-w-4xl w-full h-full sm:h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-0">
+      <div className="bg-white max-w-none sm:max-w-4xl w-full h-full overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 bg-pure-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center z-10">
           <h2 className="text-lg sm:text-2xl font-bold text-primary-dark truncate pr-4">
@@ -255,7 +255,7 @@ const PropertyModal = ({ property, onClose }) => {
           </div>
 
           {/* Contact CTA */}
-          <div className="bg-gradient-to-r from-ocean-blue to-teal-turquoise text-pure-white p-4 sm:p-6 rounded-lg">
+          <div className="bg-gradient-to-r from-ocean-blue to-teal-turquoise text-pure-white p-4 sm:p-6 rounded-lg mb-5 sm:mb-0">
             <h3 className="text-lg sm:text-xl font-semibold mb-2">
               Interested in this property?
             </h3>
