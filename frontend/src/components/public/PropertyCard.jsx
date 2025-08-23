@@ -10,6 +10,10 @@ const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
     }).format(price.amount);
   };
 
+  if (!property) {
+    return null;
+  }
+
   const primaryImage =
     property.images?.find((img) => img.isPrimary) || property.images?.[0];
 

@@ -1,6 +1,17 @@
-import PropertCard from "components/modules/PropertCard";
+import { useState } from "react";
 
-const HandpickedSection = () => {
+import PropertyCard from "components/public/PropertyCard";
+import PropertyModal from "components/public/PropertyModal";
+
+const HandpickedSection = ({ properties }) => {
+  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handlePropertyClick = (property) => {
+    setSelectedProperty(property);
+    setShowModal(true);
+  };
+
   return (
     <section className="w-full bg-light-blue-tint py-12 sm:py-16 lg:py-20 xl:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,24 +36,44 @@ const HandpickedSection = () => {
 
         <div className="mt-8 sm:mt-12 lg:mt-16">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
-            <div className="animate-slide-up">
-              <PropertCard />
+            <div className="animate-slide-up *:min-w-[100%] *:min-h-[100%]">
+              <PropertyCard
+                property={properties[0]}
+                onClick={() => handlePropertyClick(properties[0])}
+              />
             </div>
             <div
-              className="animate-slide-up"
+              className="animate-slide-up *:min-w-[100%] *:min-h-[100%]"
               style={{ animationDelay: "0.1s" }}
             >
-              <PropertCard />
+              <PropertyCard
+                property={properties[1]}
+                onClick={() => handlePropertyClick(properties[1])}
+              />
             </div>
             <div
-              className="md:col-span-2 xl:col-span-1 flex justify-center animate-slide-up"
+              className="md:col-span-2 xl:col-span-1 flex justify-center animate-slide-up *:min-w-[100%] *:min-h-[100%]"
               style={{ animationDelay: "0.2s" }}
             >
-              <PropertCard />
+              <PropertyCard
+                property={properties[2]}
+                onClick={() => handlePropertyClick(properties[2])}
+              />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Property Modal */}
+      {showModal && selectedProperty && (
+        <PropertyModal
+          property={selectedProperty}
+          onClose={() => {
+            setShowModal(false);
+            setSelectedProperty(null);
+          }}
+        />
+      )}
     </section>
   );
 };
