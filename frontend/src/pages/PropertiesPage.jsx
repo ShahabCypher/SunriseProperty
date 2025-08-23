@@ -30,8 +30,6 @@ const PropertiesPage = () => {
     propertyType: "",
     minPrice: "",
     maxPrice: "",
-    bedrooms: "",
-    bathrooms: "",
     sortBy: "createdAt",
     sortOrder: "desc",
     page: 1,
@@ -176,9 +174,9 @@ const PropertiesPage = () => {
             <FiFilter className="w-5 h-5 text-medium-gray" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4">
             {/* Search */}
-            <div className="relative sm:col-span-2">
+            <div className="relative">
               <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-medium-gray w-4 h-4" />
               <input
                 type="text"
@@ -218,33 +216,6 @@ const PropertiesPage = () => {
                 </option>
               ))}
             </select>
-
-            {/* Bedrooms */}
-            <select
-              value={filters.bedrooms}
-              onChange={(e) => handleFilterChange("bedrooms", e.target.value)}
-              className="px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold text-sm sm:text-base"
-            >
-              <option value="">Any Beds</option>
-              <option value="1">1+ Bed</option>
-              <option value="2">2+ Beds</option>
-              <option value="3">3+ Beds</option>
-              <option value="4">4+ Beds</option>
-              <option value="5">5+ Beds</option>
-            </select>
-
-            {/* Bathrooms */}
-            <select
-              value={filters.bathrooms}
-              onChange={(e) => handleFilterChange("bathrooms", e.target.value)}
-              className="px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold text-sm sm:text-base"
-            >
-              <option value="">Any Baths</option>
-              <option value="1">1+ Bath</option>
-              <option value="2">2+ Baths</option>
-              <option value="3">3+ Baths</option>
-              <option value="4">4+ Baths</option>
-            </select>
           </div>
 
           {/* Price Range */}
@@ -278,8 +249,6 @@ const PropertiesPage = () => {
               <option value="createdAt-asc">Oldest First</option>
               <option value="price.amount-asc">Price: Low to High</option>
               <option value="price.amount-desc">Price: High to Low</option>
-              <option value="name-asc">Name A-Z</option>
-              <option value="name-desc">Name Z-A</option>
             </select>
           </div>
 
