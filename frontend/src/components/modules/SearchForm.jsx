@@ -1,17 +1,25 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchForm = ({ filters, setFilters }) => {
+const SearchForm = () => {
+  const [city, setCity] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const navigate = useNavigate();
 
   const clickHandler = () => {
-    setFilters((prev) => ({
-      ...prev,
-      city: document.getElementById("location").value,
-      propertyType: document.getElementById("propertyType").value,
-      minPrice: document.getElementById("priceRange").value,
-    }));
+    let path = "/properties?";
+    if (city) {
+      path += `city=${city}&`;
+    }
+    if (propertyType) {
+      path += `propertyType=${propertyType}&`;
+    }
+    if (minPrice) {
+      path += `minPrice=${minPrice}&`;
+    }
 
-    navigate("/properties");
+    navigate(path);
   };
 
   return (
@@ -29,6 +37,8 @@ const SearchForm = ({ filters, setFilters }) => {
             <select
               name="location"
               id="location"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
               <option value="">Select City</option>
@@ -51,6 +61,8 @@ const SearchForm = ({ filters, setFilters }) => {
             <select
               name="propertyType"
               id="propertyType"
+              value={propertyType}
+              onChange={(e) => setPropertyType(e.target.value)}
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
               <option value="">All Luxury Types</option>
@@ -74,6 +86,8 @@ const SearchForm = ({ filters, setFilters }) => {
             <select
               name="priceRange"
               id="priceRange"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
               <option value="">Luxury Budget</option>
