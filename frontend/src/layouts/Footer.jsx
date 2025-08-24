@@ -25,11 +25,10 @@ const Footer = () => {
             Luxury Markets
           </h5>
           <div className="mt-5 flex flex-col gap-2 *:text-gray-300  *:hover:text-main-gold *:transform *:hover:translate-x-2 *:transition-all *:duration-300 *:w-fit">
-            <Link to="">🏝️ Dubai Marina Properties</Link>
-            <Link to="">🌴 Beverly Hills Estates</Link>
-            <Link to="">🏖️ South Beach Condos</Link>
-            <Link to="">🌊 Malibu Beach Houses</Link>
-            <Link to="">🏛️ Palm Jumeirah Villas</Link>
+            <a href="/properties?city=Dubai">🏝️ Dubai Properties</a>
+            <a href="/properties?city=Los Angeles">🌴 Los Angeles Properties</a>
+            <a href="/properties?city=Miami">🏖️ Miami Properties</a>
+            <a href="/properties?city=Malibu">🌊 Malibu Beach Houses</a>
           </div>
         </div>
         <div>
