@@ -91,10 +91,10 @@ const SearchForm = () => {
               className="w-full border-2 border-light-gold/35 focus:border-light-gold focus:ring-2 focus:ring-light-gold/20 focus:shadow-[0_0_8px_rgba(212,175,55,0.3)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-white transition-all duration-300 outline-none"
             >
               <option value="">Luxury Budget</option>
-              <option value="5000000">$5M+</option>
-              <option value="10000000">$10M+</option>
               <option value="20000000">$20M+</option>
               <option value="50000000">$50M+</option>
+              <option value="100000000">$100M+</option>
+              <option value="150000000">$150M+</option>
             </select>
           </div>
         </div>
