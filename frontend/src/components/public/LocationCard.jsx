@@ -1,0 +1,53 @@
+import { motion } from "motion/react";
+
+const LocationCard = ({ location, onClick }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    transition={{ duration: 0.3, ease: "easeIn" }}
+    viewport={{ once: true }}
+    className="group relative overflow-hidden rounded-xl cursor-pointer transform transition-all duration-300 hover:scale-105"
+    onClick={() => onClick(location)}
+  >
+    <div className="aspect-[4/3] bg-gradient-to-br from-ocean-blue to-teal-turquoise relative">
+      <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-20 transition-all duration-300">
+        <img
+          src={`/images/${location.name.toLowerCase().replace(" ", "-")}.jpg`}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 lg:p-6 text-white bg-gradient-to-b from-transparent to-black/50 text-shadow-[0_0_80px_#000]">
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold font-[Playfair_Display] mb-1 sm:mb-2">
+          {location.name}
+        </h3>
+        <p className="text-gray-200 mb-2 sm:mb-3 text-sm sm:text-base">
+          {location.tagline}
+        </p>
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
+          <div>
+            <span className="text-main-gold">Avg. Price:</span>{" "}
+            {location.stats.averagePrice}
+          </div>
+          <div>
+            <span className="text-main-gold">Properties:</span>{" "}
+            {location.stats.properties}
+          </div>
+          <div>
+            <span className="text-main-gold">Appreciation:</span>{" "}
+            {location.stats.appreciation}
+          </div>
+          <div>
+            <span className="text-main-gold">ROI:</span> {location.stats.roi}
+          </div>
+        </div>
+      </div>
+      <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
+        <div className="bg-overlay-white backdrop-blur-sm rounded-full px-2 sm:px-3 py-1 text-primary-dark text-xs sm:text-sm font-medium">
+          Premium Location
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+export default LocationCard;

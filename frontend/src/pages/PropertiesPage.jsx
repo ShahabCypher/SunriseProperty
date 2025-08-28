@@ -8,6 +8,8 @@ import {
   FiMapPin,
   FiHome,
 } from "react-icons/fi";
+import { motion } from "motion/react";
+
 import PropertyService from "services/propertyService";
 import PropertyCard from "components/public/PropertyCard";
 import PropertyModal from "components/public/PropertyModal";
@@ -197,7 +199,12 @@ const PropertiesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      className="min-h-screen bg-off-white"
+    >
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-ocean-blue to-teal-turquoise text-pure-white py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 text-center">
@@ -425,7 +432,7 @@ const PropertiesPage = () => {
           }}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 

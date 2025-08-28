@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiSettings, FiMenu, FiX } from "react-icons/fi";
+import { motion } from "motion/react";
+
 import { useAuth } from "hooks/useAuth";
 
 const Header = () => {
@@ -36,7 +38,10 @@ const Header = () => {
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
         isScrolled
           ? "bg-pure-white/95 backdrop-blur-md shadow-lg"
@@ -215,7 +220,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 };
 

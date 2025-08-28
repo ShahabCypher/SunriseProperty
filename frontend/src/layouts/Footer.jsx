@@ -2,10 +2,17 @@ import { Link } from "react-router-dom";
 import { MdOutlineMail, MdOutlineSmartphone } from "react-icons/md";
 import { CiGlobe } from "react-icons/ci";
 import { PiHouseLineLight } from "react-icons/pi";
+import { motion } from "motion/react";
 
 const Footer = () => {
   return (
-    <div className="bg-primary-dark pb-20">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      viewport={{ once: true }}
+      className="bg-primary-dark pb-20"
+    >
       <div className="container mx-auto flex flex-wrap justify-between px-15 *:w-100 *:mt-20">
         <div>
           <h5 className="text-main-gold text-2xl font-[Playfair_Display] font-[500]">
@@ -58,7 +65,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.footer>
   );
 };
 

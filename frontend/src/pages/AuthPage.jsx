@@ -1,4 +1,5 @@
 import { useParams, Navigate, Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 import SigninForm from "components/templates/SigninForm";
 import SignupForm from "components/templates/SignupForm";
@@ -18,10 +19,20 @@ const AuthPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-off-white to-light-blue-tint flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      className="min-h-screen bg-gradient-to-br from-off-white to-light-blue-tint flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8"
+    >
       <div className="w-full max-w-md space-y-8">
         {/* Auth Card */}
-        <div className="bg-pure-white rounded-2xl shadow-2xl border border-white/50 p-6 sm:p-8 lg:p-10 mt-[-100px] md:mt-0">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeIn" }}
+          className="bg-pure-white rounded-2xl shadow-2xl border border-white/50 p-6 sm:p-8 lg:p-10 mt-[-100px] md:mt-0"
+        >
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-dark font-[Playfair_Display]">
@@ -53,9 +64,9 @@ const AuthPage = () => {
               </Link>
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

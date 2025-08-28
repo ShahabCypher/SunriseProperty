@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 
 import PropertyCard from "components/public/PropertyCard";
 import PropertyModal from "components/public/PropertyModal";
@@ -13,7 +14,13 @@ const HandpickedSection = ({ properties }) => {
   };
 
   return (
-    <section className="w-full bg-light-blue-tint py-12 sm:py-16 lg:py-20 xl:py-24">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      viewport={{ once: true }}
+      className="w-full bg-light-blue-tint py-12 sm:py-16 lg:py-20 xl:py-24"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-sm sm:text-base lg:text-lg text-medium-gray tracking-wider sm:tracking-widest uppercase font-medium">
@@ -88,7 +95,7 @@ const HandpickedSection = ({ properties }) => {
           }}
         />
       )}
-    </section>
+    </motion.section>
   );
 };
 

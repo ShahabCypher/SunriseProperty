@@ -10,6 +10,8 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { FaBath, FaBed } from "react-icons/fa";
+import { motion } from "motion/react";
+
 import PropertyMap from "./PropertyMap";
 
 const PropertyModal = ({ property, onClose }) => {
@@ -55,7 +57,12 @@ const PropertyModal = ({ property, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-0">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.1 }}
+      className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-0"
+    >
       <div className="bg-white max-w-none sm:max-w-4xl w-full h-full overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 bg-pure-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center z-10">
@@ -294,7 +301,7 @@ const PropertyModal = ({ property, onClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

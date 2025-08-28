@@ -1,4 +1,5 @@
 import CountUp from "react-countup";
+import { motion } from "motion/react";
 
 const CounterSection = () => {
   const stats = [
@@ -27,7 +28,13 @@ const CounterSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-r from-light-gold/5 to-main-gold/5 py-12 sm:py-16 lg:py-20 xl:py-24">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      viewport={{ once: true }}
+      className="bg-gradient-to-r from-light-gold/5 to-main-gold/5 py-12 sm:py-16 lg:py-20 xl:py-24"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           {stats.map((stat, index) => (
@@ -55,7 +62,7 @@ const CounterSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

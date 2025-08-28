@@ -1,8 +1,15 @@
+import { motion } from "motion/react";
+
 import SearchForm from "components/modules/SearchForm";
 
 const HeroSection = ({ filters, setFilters }) => {
   return (
-    <section className="w-full">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      className="w-full"
+    >
       <div className="bg-[url('/images/hero-bg.jpg')] bg-center bg-cover min-h-screen md:h-fit pb-5 md:py-15">
         <div className="container mx-auto flex flex-col items-center md:justify-center  h-full">
           {/* Card */}
@@ -26,7 +33,7 @@ const HeroSection = ({ filters, setFilters }) => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,5 +1,6 @@
 import { FiMapPin, FiHome, FiStar, FiSquare } from "react-icons/fi";
 import { FaBath, FaBed } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
   const formatPrice = (price) => {
@@ -95,7 +96,11 @@ const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
 
   // Use the handpicked section card design for grid view
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      viewport={{ once: true }}
       className="bg-white rounded-2xl shadow-[0_0_10px_rgba(0,0,0,0.1)] transform hover:translate-y-[-10px] hover:scale-105 hover:shadow-[0_0_30px_5px_rgba(0,0,0,0.2)] transition-all duration-300 ease-in-out cursor-pointer"
       onClick={onClick}
     >
@@ -157,7 +162,7 @@ const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

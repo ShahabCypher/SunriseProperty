@@ -11,6 +11,7 @@ import {
   FiGlobe,
 } from "react-icons/fi";
 import { FaBuilding } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const ContactPage = () => {
   const navigate = useNavigate();
@@ -117,7 +118,12 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeIn" }}
+      className="min-h-screen bg-off-white"
+    >
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-ocean-blue to-teal-turquoise text-pure-white py-16 sm:py-20 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
@@ -446,7 +452,7 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
