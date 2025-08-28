@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   FiSearch,
@@ -42,6 +42,7 @@ const PropertiesPage = () => {
   });
 
   const [filters, setFilters] = useState(initialFilters);
+  const isLoadingRef = useRef(false);
 
   const resetFilterHandler = () => {
     setFilters({
@@ -85,16 +86,23 @@ const PropertiesPage = () => {
   }, []);
 
   const searchHandler = () => {
-    loadProperties();
+    setFilters((prev) => ({ ...prev, page: 1 }));
+    const updatedFilters = { ...filters, page: 1 };
+    loadProperties(false, updatedFilters);
   };
 
-  const loadProperties = async (noFilter = false) => {
+  const loadProperties = async (noFilter = false, customFilters = null) => {
+    // Prevent multiple simultaneous requests
+    if (isLoadingRef.current) return;
+
+    isLoadingRef.current = true;
     setLoading(true);
     try {
       let cleanFilters = {};
       if (!noFilter) {
+        const filtersToUse = customFilters || filters;
         cleanFilters = Object.fromEntries(
-          Object.entries(filters).filter(([key, value]) => value !== "")
+          Object.entries(filtersToUse).filter(([key, value]) => value !== "")
         );
       }
 
@@ -105,6 +113,7 @@ const PropertiesPage = () => {
       console.error("Failed to load properties:", error);
     } finally {
       setLoading(false);
+      isLoadingRef.current = false;
     }
   };
 
@@ -146,6 +155,8 @@ const PropertiesPage = () => {
 
   const handlePageChange = (newPage) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
+    const updatedFilters = { ...filters, page: newPage };
+    loadProperties(false, updatedFilters);
   };
 
   const renderPagination = () => {
