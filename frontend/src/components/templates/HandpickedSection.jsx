@@ -35,32 +35,46 @@ const HandpickedSection = ({ properties }) => {
         </div>
 
         <div className="mt-8 sm:mt-12 lg:mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
-            <div className="animate-slide-up *:min-w-[100%] *:min-h-[100%]">
-              <PropertyCard
-                property={properties[0]}
-                onClick={() => handlePropertyClick(properties[0])}
-              />
+          {properties && properties.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
+              {properties[0] && (
+                <div className="animate-slide-up *:min-w-[100%] *:min-h-[100%]">
+                  <PropertyCard
+                    property={properties[0]}
+                    onClick={() => handlePropertyClick(properties[0])}
+                  />
+                </div>
+              )}
+              {properties[1] && (
+                <div
+                  className="animate-slide-up *:min-w-[100%] *:min-h-[100%]"
+                  style={{ animationDelay: "0.1s" }}
+                >
+                  <PropertyCard
+                    property={properties[1]}
+                    onClick={() => handlePropertyClick(properties[1])}
+                  />
+                </div>
+              )}
+              {properties[2] && (
+                <div
+                  className="md:col-span-2 xl:col-span-1 flex justify-center animate-slide-up *:min-w-[100%] *:min-h-[100%]"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <PropertyCard
+                    property={properties[2]}
+                    onClick={() => handlePropertyClick(properties[2])}
+                  />
+                </div>
+              )}
             </div>
-            <div
-              className="animate-slide-up *:min-w-[100%] *:min-h-[100%]"
-              style={{ animationDelay: "0.1s" }}
-            >
-              <PropertyCard
-                property={properties[1]}
-                onClick={() => handlePropertyClick(properties[1])}
-              />
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-medium-gray text-lg">
+                Loading featured properties...
+              </p>
             </div>
-            <div
-              className="md:col-span-2 xl:col-span-1 flex justify-center animate-slide-up *:min-w-[100%] *:min-h-[100%]"
-              style={{ animationDelay: "0.2s" }}
-            >
-              <PropertyCard
-                property={properties[2]}
-                onClick={() => handlePropertyClick(properties[2])}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </div>
 

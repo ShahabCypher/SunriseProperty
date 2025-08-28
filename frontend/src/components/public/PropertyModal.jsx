@@ -10,6 +10,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { FaBath, FaBed } from "react-icons/fa";
+import PropertyMap from "./PropertyMap";
 
 const PropertyModal = ({ property, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -253,6 +254,19 @@ const PropertyModal = ({ property, onClose }) => {
               </div>
             </div>
           </div>
+
+          {/* Property Location Map */}
+          {property.location?.coordinates?.coordinates && (
+            <div className="mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-semibold text-primary-dark mb-3">
+                Location
+              </h3>
+              <PropertyMap
+                property={property}
+                className="h-56 sm:h-72 md:h-80"
+              />
+            </div>
+          )}
 
           {/* Contact CTA */}
           <div className="bg-gradient-to-r from-ocean-blue to-teal-turquoise text-pure-white p-4 sm:p-6 rounded-lg mb-5 sm:mb-0">

@@ -30,6 +30,10 @@ const App = () => {
     }
   }, [dispatch, isInitialized]);
 
+  useEffect(() => {
+    loadProperties();
+  }, []);
+
   const hpfilters = {
     sortBy: "price.amount",
     sortOrder: "desc",
