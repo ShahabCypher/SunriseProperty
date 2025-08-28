@@ -217,17 +217,12 @@ const PropertyMap = ({ property, className = "" }) => {
         />
 
         {/* Map overlay with property details */}
-        <div className="absolute top-4 left-15 bg-overlay-white backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
-          <div className="flex items-center space-x-3">
-            <div className="w-3 h-3 bg-main-gold rounded-full"></div>
-            <div>
-              <h4 className="text-sm font-semibold text-primary-dark">
-                {property.name}
-              </h4>
-              <p className="text-xs text-medium-gray">
-                {property.location.address}
-              </p>
-            </div>
+        <div className="absolute top-3 left-15 bg-overlay-white backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm z-[1000]">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-main-gold rounded-full"></div>
+            <span className="text-xs font-medium text-primary-dark">
+              Property Location
+            </span>
           </div>
         </div>
 
@@ -248,7 +243,7 @@ const PropertyMap = ({ property, className = "" }) => {
             <div className="w-full h-full" id="fullscreen-map" />
 
             {/* Fullscreen map overlay */}
-            <div className="absolute top-4 left-15 bg-overlay-white backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
+            <div className="absolute w-3/5 sm:w-auto top-4 left-15 bg-overlay-white backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-main-gold rounded-full"></div>
                 <div>
