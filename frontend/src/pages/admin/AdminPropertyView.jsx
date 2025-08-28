@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FiArrowLeft, FiEdit, FiMapPin, FiHome, FiStar } from "react-icons/fi";
+import { FiArrowLeft, FiEdit, FiMapPin, FiStar } from "react-icons/fi";
+
 import { useAdmin } from "hooks/useAdmin";
+import PropertyMap from "components/public/PropertyMap";
 
 const AdminPropertyView = () => {
   const { id } = useParams();
@@ -127,6 +129,18 @@ const AdminPropertyView = () => {
               {property.description}
             </p>
           </div>
+
+          {property.location?.coordinates?.coordinates && (
+            <div className="mb-4 sm:mb-6 bg-pure-white rounded-lg shadow-md border border-gray-200 p-6">
+              <h3 className="text-lg sm:text-xl font-semibold text-primary-dark mb-3 flex items-center">
+                <FiMapPin className="w-5 h-5 mr-2" /> Map
+              </h3>
+              <PropertyMap
+                property={property}
+                className="h-56 sm:h-72 md:h-80"
+              />
+            </div>
+          )}
 
           {/* Features */}
           {property.features && property.features.length > 0 && (
