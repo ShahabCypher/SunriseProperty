@@ -313,6 +313,10 @@ const ContactPage = () => {
                   </>
                 )}
               </button>
+              <p className="text-xs text-gray-400">
+                This is a mock form and we will not actually receive any
+                message*
+              </p>
             </form>
           </div>
 
