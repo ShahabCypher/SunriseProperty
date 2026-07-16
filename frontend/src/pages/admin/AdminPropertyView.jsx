@@ -4,6 +4,7 @@ import { FiArrowLeft, FiEdit, FiMapPin, FiStar } from "react-icons/fi";
 
 import { useAdmin } from "hooks/useAdmin";
 import PropertyMap from "components/public/PropertyMap";
+import { getImageSrc } from "utils/imageUrl";
 
 const AdminPropertyView = () => {
   const { id } = useParams();
@@ -105,7 +106,7 @@ const AdminPropertyView = () => {
                 {property.images.map((image, index) => (
                   <div key={index} className="relative">
                     <img
-                      src={`${import.meta.env.VITE_API_URL}${image.url}`}
+                      src={getImageSrc(image.url)}
                       alt={image.alt || `${property.name} image ${index + 1}`}
                       className="w-full h-32 object-cover rounded-lg"
                     />

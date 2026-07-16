@@ -13,6 +13,7 @@ import { FaBath, FaBed } from "react-icons/fa";
 import { motion } from "motion/react";
 
 import PropertyMap from "./PropertyMap";
+import { getImageSrc } from "utils/imageUrl";
 
 const PropertyModal = ({ property, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -81,9 +82,7 @@ const PropertyModal = ({ property, onClose }) => {
         {property.images && property.images.length > 0 && (
           <div className="relative">
             <img
-              src={`${import.meta.env.VITE_API_URL}${
-                property.images[currentImageIndex].url
-              }`}
+              src={getImageSrc(property.images[currentImageIndex].url)}
               alt={property.name}
               className="w-full h-48 sm:h-64 md:h-80 object-cover"
             />

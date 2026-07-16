@@ -8,6 +8,7 @@ import {
   FiMapPin,
   FiHome,
 } from "react-icons/fi";
+import { getImageSrc } from "utils/imageUrl";
 import { useAdmin } from "hooks/useAdmin";
 
 const PropertyCard = ({ property, onUpdate, onDelete }) => {
@@ -74,7 +75,7 @@ const PropertyCard = ({ property, onUpdate, onDelete }) => {
       <div className="relative">
         {primaryImage ? (
           <img
-            src={`${import.meta.env.VITE_API_URL}${primaryImage.url}`}
+            src={getImageSrc(primaryImage.url)}
             alt={property.name}
             className="w-full h-48 object-cover"
           />

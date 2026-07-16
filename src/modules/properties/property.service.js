@@ -169,16 +169,27 @@ export const getPropertyById = async (propertyId, incrementView = false) => {
 };
 
 // Create new property
-export const createProperty = async (propertyData, ownerId, files = []) => {
+export const createProperty = async (propertyData, ownerId, files = [], imageUrls = []) => {
   try {
     // Process uploaded images
-    const images = files.map((file) => ({
+    const uploadedImages = files.map((file) => ({
       url: getImageUrl(file.filename),
       filename: file.filename,
       originalName: file.originalname,
       alt: `${propertyData.name} image`,
       isPrimary: false,
     }));
+
+    // Process URL-based images
+    const urlImages = imageUrls.map((imageUrl) => ({
+      url: imageUrl,
+      filename: "",
+      originalName: "",
+      alt: `${propertyData.name} image`,
+      isPrimary: false,
+    }));
+
+    const images = [...uploadedImages, ...urlImages];
 
     // Set first image as primary
     if (images.length > 0) {
@@ -308,10 +319,12 @@ export const permanentlyDeleteProperty = async (
       );
     }
 
-    // Delete images from local storage
+    // Delete images from local storage (skip URL-based images)
     if (property.images && property.images.length > 0) {
       await Promise.allSettled(
-        property.images.map((image) => deleteFromLocal(image.filename))
+        property.images
+          .filter((image) => image.filename)
+          .map((image) => deleteFromLocal(image.filename))
       );
     }
 
@@ -331,7 +344,8 @@ export const addPropertyImages = async (
   propertyId,
   userId,
   userRole,
-  files
+  files = [],
+  imageUrls = []
 ) => {
   try {
     const property = await Property.findOne({
@@ -353,12 +367,12 @@ export const addPropertyImages = async (
     }
 
     // Check image limit
-    if (property.images.length + files.length > 10) {
+    if (property.images.length + files.length + imageUrls.length > 10) {
       throw new AppError("Maximum 10 images allowed per property", 400);
     }
 
-    // Process new images
-    const newImages = files.map((file) => ({
+    // Process uploaded images
+    const uploadedImages = files.map((file) => ({
       url: getImageUrl(file.filename),
       filename: file.filename,
       originalName: file.originalname,
@@ -366,7 +380,16 @@ export const addPropertyImages = async (
       isPrimary: false,
     }));
 
-    property.images.push(...newImages);
+    // Process URL-based images
+    const urlImages = imageUrls.map((imageUrl) => ({
+      url: imageUrl,
+      filename: "",
+      originalName: "",
+      alt: `${property.name} image`,
+      isPrimary: false,
+    }));
+
+    property.images.push(...uploadedImages, ...urlImages);
     await property.save();
 
     return property;
@@ -417,8 +440,10 @@ export const removePropertyImage = async (
       throw new AppError("Cannot remove the last image", 400);
     }
 
-    // Delete from local storage
-    await deleteFromLocal(image.filename);
+    // Delete from local storage (skip for URL-based images)
+    if (image.filename) {
+      await deleteFromLocal(image.filename);
+    }
 
     // Remove from property
     property.images.pull(imageId);

@@ -102,6 +102,7 @@ router.post(
   validateObjectId("id"),
   uploadMultiple,
   handleUploadError,
+  preprocessPropertyData,
   propertyController.addPropertyImages
 );
 

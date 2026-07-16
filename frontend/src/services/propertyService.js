@@ -89,6 +89,20 @@ class PropertyService {
     return response.data;
   }
 
+  async addPropertyImagesUrls(id, imageUrls) {
+    const formData = new FormData();
+    imageUrls.forEach((url) => {
+      formData.append("imageUrls", url);
+    });
+
+    const response = await api.post(`/${id}/images`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  }
+
   async removePropertyImage(id, imageId) {
     const response = await api.delete(`/${id}/images/${imageId}`);
     return response.data;

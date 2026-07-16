@@ -1,6 +1,7 @@
 import { FiMapPin, FiHome, FiStar, FiSquare } from "react-icons/fi";
 import { FaBath, FaBed } from "react-icons/fa";
 import { motion } from "motion/react";
+import { getImageSrc } from "utils/imageUrl";
 
 const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
   const formatPrice = (price) => {
@@ -27,7 +28,7 @@ const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
         <div className="w-full sm:w-80 h-48 sm:h-48 flex-shrink-0">
           {primaryImage ? (
             <img
-              src={`${import.meta.env.VITE_API_URL}${primaryImage.url}`}
+              src={getImageSrc(primaryImage.url)}
               alt={property.name}
               className="w-full h-full object-cover"
             />
@@ -108,7 +109,7 @@ const PropertyCard = ({ property, viewMode = "grid", onClick }) => {
       <div className="relative h-48 sm:h-56 md:h-64">
         {primaryImage ? (
           <img
-            src={`${import.meta.env.VITE_API_URL}${primaryImage.url}`}
+            src={getImageSrc(primaryImage.url)}
             alt={property.name}
             className="w-full h-full object-cover rounded-t-2xl"
           />

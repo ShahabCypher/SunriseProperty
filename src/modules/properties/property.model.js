@@ -127,11 +127,11 @@ const propertySchema = new mongoose.Schema(
         },
         filename: {
           type: String,
-          required: true,
+          default: "",
         },
         originalName: {
           type: String,
-          required: true,
+          default: "",
         },
         alt: {
           type: String,

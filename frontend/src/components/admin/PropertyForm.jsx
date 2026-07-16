@@ -1,10 +1,18 @@
 import { useState, useRef } from "react";
-import { FiUpload, FiX, FiImage } from "react-icons/fi";
+import { FiUpload, FiX, FiImage, FiLink } from "react-icons/fi";
 import { useAdmin } from "hooks/useAdmin";
+import { getImageSrc } from "utils/imageUrl";
 
 const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
   const fileInputRef = useRef(null);
-  const { createProperty, updateProperty, loading } = useAdmin();
+  const {
+    createProperty,
+    updateProperty,
+    addPropertyImages,
+    addPropertyImagesUrls,
+    removePropertyImage,
+    loading,
+  } = useAdmin();
 
   const [formData, setFormData] = useState({
     name: property?.name || "",
@@ -46,6 +54,9 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
   });
 
   const [selectedImages, setSelectedImages] = useState([]);
+  const [imageUrlInput, setImageUrlInput] = useState("");
+  const [imageInputMode, setImageInputMode] = useState("file");
+  const [existingImages, setExistingImages] = useState(property?.images || []);
   const [errors, setErrors] = useState({});
 
   const propertyTypes = [
@@ -101,6 +112,28 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
 
   const removeImage = (index) => {
     setSelectedImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const addImageUrl = () => {
+    const url = imageUrlInput.trim();
+    if (!url) return;
+    try {
+      new URL(url);
+    } catch {
+      return;
+    }
+    setSelectedImages((prev) => [...prev, url]);
+    setImageUrlInput("");
+  };
+
+  const removeExistingImage = async (imageId) => {
+    if (!property) return;
+    try {
+      await removePropertyImage(property._id, imageId);
+      setExistingImages((prev) => prev.filter((img) => img._id !== imageId));
+    } catch {
+      // error handled by useAdmin
+    }
   };
 
   const validateForm = () => {
@@ -166,6 +199,17 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
 
       if (property) {
         await updateProperty(property._id, propertyData);
+
+        // Add new images if any were selected in edit mode
+        const files = selectedImages.filter((img) => img instanceof File);
+        const urls = selectedImages.filter((img) => typeof img === "string");
+
+        if (files.length > 0) {
+          await addPropertyImages(property._id, files);
+        }
+        if (urls.length > 0) {
+          await addPropertyImagesUrls(property._id, urls);
+        }
       } else {
         const submitData = new FormData();
 
@@ -215,9 +259,15 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
           submitData.append(`features[${index}]`, feature);
         });
 
-        // Images
-        selectedImages.forEach((image) => {
+        // Separate files and URLs
+        const files = selectedImages.filter((img) => img instanceof File);
+        const urls = selectedImages.filter((img) => typeof img === "string");
+
+        files.forEach((image) => {
           submitData.append("images", image);
+        });
+        urls.forEach((url) => {
+          submitData.append("imageUrls", url);
         });
 
         await createProperty(submitData);
@@ -554,10 +604,64 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
         </div>
 
         {/* Images */}
-        {!property && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-primary-dark">Images</h3>
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-primary-dark">Images</h3>
 
+          {/* Existing images in edit mode */}
+          {property && existingImages.length > 0 && (
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              {existingImages.map((image) => (
+                <div key={image._id} className="relative">
+                  <img
+                    src={getImageSrc(image.url)}
+                    alt={image.alt || "Property image"}
+                    className="w-full h-20 object-cover rounded-lg"
+                  />
+                  {image.isPrimary && (
+                    <span className="absolute bottom-0 left-0 bg-main-gold text-white text-xs px-1 rounded-tr">
+                      Primary
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => removeExistingImage(image._id)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                  >
+                    <FiX className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Input mode toggle */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setImageInputMode("file")}
+              className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-md border transition-colors ${
+                imageInputMode === "file"
+                  ? "border-main-gold bg-main-gold/10 text-main-gold"
+                  : "border-gray-300 text-medium-gray hover:border-gray-400"
+              }`}
+            >
+              <FiUpload className="h-4 w-4" /> Upload File
+            </button>
+            <button
+              type="button"
+              onClick={() => setImageInputMode("url")}
+              className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-md border transition-colors ${
+                imageInputMode === "url"
+                  ? "border-main-gold bg-main-gold/10 text-main-gold"
+                  : "border-gray-300 text-medium-gray hover:border-gray-400"
+              }`}
+            >
+              <FiLink className="h-4 w-4" /> Add URL
+            </button>
+          </div>
+
+          {/* File upload */}
+          {imageInputMode === "file" && (
             <div>
               <input
                 type="file"
@@ -578,29 +682,55 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
                 </div>
               </button>
             </div>
+          )}
 
-            {selectedImages.length > 0 && (
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                {selectedImages.map((image, index) => (
-                  <div key={index} className="relative">
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt={`Preview ${index + 1}`}
-                      className="w-full h-20 object-cover rounded-lg"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeImage(index)}
-                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
-                    >
-                      <FiX className="h-3 w-3" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+          {/* URL input */}
+          {imageInputMode === "url" && (
+            <div className="flex gap-2">
+              <input
+                type="url"
+                value={imageUrlInput}
+                onChange={(e) => setImageUrlInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addImageUrl())}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-gold focus:border-main-gold"
+                placeholder="https://example.com/image.jpg"
+              />
+              <button
+                type="button"
+                onClick={addImageUrl}
+                className="px-4 py-2 bg-main-gold text-white rounded-md hover:bg-dark-gold transition-colors"
+              >
+                Add
+              </button>
+            </div>
+          )}
+
+          {/* Selected new images preview */}
+          {selectedImages.length > 0 && (
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              {selectedImages.map((image, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={
+                      typeof image === "string"
+                        ? image
+                        : URL.createObjectURL(image)
+                    }
+                    alt={`Preview ${index + 1}`}
+                    className="w-full h-20 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                  >
+                    <FiX className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Actions */}
         <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+.*/
+cloud/
+AGENTS.md
 API_DOCUMENTATION.md
 
 # Editor directories and files

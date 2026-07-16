@@ -27,10 +27,19 @@ export const getPropertyById = asyncHandler(async (req, res) => {
 
 // Create new property
 export const createProperty = asyncHandler(async (req, res) => {
+  const imageUrls = req.body.imageUrls
+    ? Array.isArray(req.body.imageUrls)
+      ? req.body.imageUrls
+      : [req.body.imageUrls]
+    : [];
+
+  const { imageUrls: _, ...propertyData } = req.body;
+
   const property = await propertyService.createProperty(
-    req.body,
+    propertyData,
     req.user._id,
-    req.files || []
+    req.files || [],
+    imageUrls
   );
 
   res.status(201).json({
@@ -90,11 +99,18 @@ export const permanentlyDeleteProperty = asyncHandler(async (req, res) => {
 
 // Add images to property
 export const addPropertyImages = asyncHandler(async (req, res) => {
+  const imageUrls = req.body.imageUrls
+    ? Array.isArray(req.body.imageUrls)
+      ? req.body.imageUrls
+      : [req.body.imageUrls]
+    : [];
+
   const property = await propertyService.addPropertyImages(
     req.params.id,
     req.user._id,
     req.user.role,
-    req.files || []
+    req.files || [],
+    imageUrls
   );
 
   res.status(200).json({

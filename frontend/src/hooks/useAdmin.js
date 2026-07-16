@@ -65,6 +65,9 @@ export const useAdmin = () => {
   const addPropertyImages = (id, images) =>
     executeWithLoading(() => propertyService.addPropertyImages(id, images));
 
+  const addPropertyImagesUrls = (id, imageUrls) =>
+    executeWithLoading(() => propertyService.addPropertyImagesUrls(id, imageUrls));
+
   const removePropertyImage = (id, imageId) =>
     executeWithLoading(() => propertyService.removePropertyImage(id, imageId));
 
@@ -89,6 +92,7 @@ export const useAdmin = () => {
     bulkUpdateProperties,
     getPropertyStats,
     addPropertyImages,
+    addPropertyImagesUrls,
     removePropertyImage,
     setPrimaryImage,
   };
