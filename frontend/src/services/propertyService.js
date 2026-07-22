@@ -1,35 +1,18 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import { API_BASE_URL } from "config/api";
-
-const api = axios.create({
-  baseURL: `${API_BASE_URL}/properties`,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-api.interceptors.request.use((config) => {
-  const token = Cookies.get("accessToken");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+import api from "config/api";
 
 class PropertyService {
   async getAllProperties(params = {}) {
-    const response = await api.get("/", { params });
+    const response = await api.get("/properties", { params });
     return response.data;
   }
 
   async getProperty(id) {
-    const response = await api.get(`/${id}`);
+    const response = await api.get(`/properties/${id}`);
     return response.data;
   }
 
   async createProperty(formData) {
-    const response = await api.post("/", formData, {
+    const response = await api.post("/properties", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -38,32 +21,32 @@ class PropertyService {
   }
 
   async updateProperty(id, data) {
-    const response = await api.put(`/${id}`, data);
+    const response = await api.put(`/properties/${id}`, data);
     return response.data;
   }
 
   async deleteProperty(id) {
-    const response = await api.delete(`/${id}`);
+    const response = await api.delete(`/properties/${id}`);
     return response.data;
   }
 
   async permanentDeleteProperty(id) {
-    const response = await api.delete(`/${id}/permanent`);
+    const response = await api.delete(`/properties/${id}/permanent`);
     return response.data;
   }
 
   async updatePropertyStatus(id, status) {
-    const response = await api.patch(`/${id}/status`, { status });
+    const response = await api.patch(`/properties/${id}/status`, { status });
     return response.data;
   }
 
   async toggleFeaturedStatus(id) {
-    const response = await api.patch(`/${id}/toggle-featured`);
+    const response = await api.patch(`/properties/${id}/toggle-featured`);
     return response.data;
   }
 
   async bulkUpdateProperties(propertyIds, updateData) {
-    const response = await api.patch("/bulk/update", {
+    const response = await api.patch("/properties/bulk/update", {
       propertyIds,
       updateData,
     });
@@ -71,7 +54,7 @@ class PropertyService {
   }
 
   async getPropertyStats() {
-    const response = await api.get("/admin/stats");
+    const response = await api.get("/properties/admin/stats");
     return response.data;
   }
 
@@ -81,7 +64,7 @@ class PropertyService {
       formData.append("images", image);
     });
 
-    const response = await api.post(`/${id}/images`, formData, {
+    const response = await api.post(`/properties/${id}/images`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -95,7 +78,7 @@ class PropertyService {
       formData.append("imageUrls", url);
     });
 
-    const response = await api.post(`/${id}/images`, formData, {
+    const response = await api.post(`/properties/${id}/images`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -104,12 +87,12 @@ class PropertyService {
   }
 
   async removePropertyImage(id, imageId) {
-    const response = await api.delete(`/${id}/images/${imageId}`);
+    const response = await api.delete(`/properties/${id}/images/${imageId}`);
     return response.data;
   }
 
   async setPrimaryImage(id, imageId) {
-    const response = await api.patch(`/${id}/images/${imageId}/primary`);
+    const response = await api.patch(`/properties/${id}/images/${imageId}/primary`);
     return response.data;
   }
 }
