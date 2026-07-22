@@ -17,7 +17,7 @@ const LocationModal = ({ location, onClose }) => {
         {/* Header */}
         <div className="relative h-48 sm:h-64 bg-gradient-to-br from-ocean-blue to-teal-turquoise">
           <img
-            src={`/images/${location.name.toLowerCase().replace(" ", "-")}.jpg`}
+            src={`/images/${location.name.toLowerCase().replace(" ", "-")}.webp`}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 p-2 rounded-lg z-20 h-full w-full"></div>

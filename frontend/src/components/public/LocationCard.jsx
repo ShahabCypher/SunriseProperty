@@ -12,7 +12,7 @@ const LocationCard = ({ location, onClick }) => (
     <div className="aspect-[4/3] bg-gradient-to-br from-ocean-blue to-teal-turquoise relative">
       <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-20 transition-all duration-300">
         <img
-          src={`/images/${location.name.toLowerCase().replace(" ", "-")}.jpg`}
+          src={`/images/${location.name.toLowerCase().replace(" ", "-")}.webp`}
           className="w-full h-full object-cover"
         />
       </div>
@@ -39,11 +39,6 @@ const LocationCard = ({ location, onClick }) => (
           <div>
             <span className="text-main-gold">ROI:</span> {location.stats.roi}
           </div>
-        </div>
-      </div>
-      <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
-        <div className="bg-overlay-white backdrop-blur-sm rounded-full px-2 sm:px-3 py-1 text-primary-dark text-xs sm:text-sm font-medium">
-          Premium Location
         </div>
       </div>
     </div>
