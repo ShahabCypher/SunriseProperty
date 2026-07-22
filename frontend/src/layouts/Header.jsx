@@ -49,7 +49,7 @@ const Header = () => {
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 shadow-lg">
-        <div className="flex justify-between items-center h-16 sm:h-20">
+        <div className="flex justify-between items-center h-16 sm:h-20 ">
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-[Playfair_Display] bg-gradient-to-r from-light-gold to-dark-gold text-transparent bg-clip-text drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]">
