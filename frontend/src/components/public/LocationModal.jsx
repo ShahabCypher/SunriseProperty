@@ -15,26 +15,27 @@ const LocationModal = ({ location, onClose }) => {
     >
       <div className="bg-pure-white rounded-none sm:rounded-lg max-w-none sm:max-w-4xl w-full h-full sm:h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="relative h-48 sm:h-64 bg-gradient-to-br from-ocean-blue to-teal-turquoise">
+        <div className="relative h-48 sm:h-64 bg-gradient-to-br from-ocean-blue to-teal-turquoise overflow-hidden">
           <img
             src={`/images/${location.name.toLowerCase().replace(" ", "-")}.webp`}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 p-2 rounded-lg z-20 h-full w-full"></div>
+          <div className="absolute inset-0 bg-black/30 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20"></div>
           <button
             onClick={onClose}
             className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-overlay-white backdrop-blur-sm p-1 sm:p-2 rounded-full hover:bg-white transition-colors text-shadow-[0_0_80px_#000] z-30"
           >
             <IoMdClose className="w-5 h-5 sm:w-6 sm:h-6 text-primary-dark" />
           </button>
-          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white text-shadow-[0_0_10px_rgba(0,0,0,1)] z-30">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] mb-1 sm:mb-2">
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white z-30">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[Playfair_Display] mb-1 sm:mb-2 drop-shadow-lg">
               {location.name}
             </h1>
-            <p className="text-lg sm:text-xl text-gray-200">
+            <p className="text-lg sm:text-xl text-gray-100 drop-shadow-md">
               {location.country}
             </p>
-            <p className="text-base sm:text-lg text-main-gold">
+            <p className="text-base sm:text-lg text-main-gold drop-shadow-md">
               {location.tagline}
             </p>
           </div>
