@@ -10,7 +10,7 @@ const HeroSection = ({ filters, setFilters }) => {
       transition={{ duration: 0.3, ease: "easeIn" }}
       className="w-full"
     >
-      <div className="bg-[url('/images/hero-bg.jpg')] bg-center bg-cover min-h-screen md:h-fit pb-5 md:py-15">
+      <div className="bg-[url('/images/hero-bg.webp')] bg-center bg-cover min-h-screen md:h-fit pb-5 md:py-15">
         <div className="container mx-auto flex flex-col items-center md:justify-center  h-full">
           {/* Card */}
           <div className="flex flex-col items-center mx-5 mt-10 md:m-0 md:w-3/5 bg-off-white/65 backdrop-blur-sm rounded-2xl p-4 md:p-10 text-center shadow-[0_0_10px_rgba(0,0,0,0.2)]">
