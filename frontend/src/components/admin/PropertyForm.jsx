@@ -57,6 +57,7 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
   const [imageUrlInput, setImageUrlInput] = useState("");
   const [imageInputMode, setImageInputMode] = useState("file");
   const [existingImages, setExistingImages] = useState(property?.images || []);
+  const [removedImageIds, setRemovedImageIds] = useState([]);
   const [errors, setErrors] = useState({});
 
   const propertyTypes = [
@@ -126,14 +127,9 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
     setImageUrlInput("");
   };
 
-  const removeExistingImage = async (imageId) => {
-    if (!property) return;
-    try {
-      await removePropertyImage(property._id, imageId);
-      setExistingImages((prev) => prev.filter((img) => img._id !== imageId));
-    } catch {
-      // error handled by useAdmin
-    }
+  const removeExistingImage = (imageId) => {
+    setExistingImages((prev) => prev.filter((img) => img._id !== imageId));
+    setRemovedImageIds((prev) => [...prev, imageId]);
   };
 
   const validateForm = () => {
@@ -199,6 +195,11 @@ const PropertyForm = ({ property = null, onSuccess, onCancel }) => {
 
       if (property) {
         await updateProperty(property._id, propertyData);
+
+        // Remove images that were deleted during editing
+        for (const imageId of removedImageIds) {
+          await removePropertyImage(property._id, imageId);
+        }
 
         // Add new images if any were selected in edit mode
         const files = selectedImages.filter((img) => img instanceof File);

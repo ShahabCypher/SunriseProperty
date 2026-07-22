@@ -435,11 +435,6 @@ export const removePropertyImage = async (
       throw new AppError("Image not found", 404);
     }
 
-    // Don't allow removing the last image
-    if (property.images.length === 1) {
-      throw new AppError("Cannot remove the last image", 400);
-    }
-
     // Delete from local storage (skip for URL-based images)
     if (image.filename) {
       await deleteFromLocal(image.filename);
