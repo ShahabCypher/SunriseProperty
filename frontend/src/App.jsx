@@ -17,6 +17,12 @@ import AdminPanel from "pages/AdminPanel";
 import Loader from "components/modules/Loader";
 import PropertyService from "services/propertyService";
 
+const AdminRoute = () => {
+  const isInitialized = useAppSelector(selectAuthInitialized);
+  if (!isInitialized) return <Loader />;
+  return <AdminPanel />;
+};
+
 const App = () => {
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(selectAuthInitialized);
@@ -64,7 +70,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="admin/*" element={<AdminPanel />} />
+        <Route path="admin/*" element={<AdminRoute />} />
 
         <Route
           path="/*"
