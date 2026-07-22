@@ -75,38 +75,22 @@ export const getCurrentUser = createAsyncThunk(
 
 export const initializeAuth = createAsyncThunk(
   "auth/initialize",
-  async (_, { dispatch, rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const token = authService.getAccessToken();
 
-      if (token) {
-        try {
-          const response = await authService.getMe();
-          return {
-            user: response.data.user,
-            accessToken: token,
-            refreshToken: authService.getRefreshToken(),
-          };
-        } catch (error) {
-          authService.logout();
-          return null;
-        }
-      } else {
-        try {
-          const response = await authService.getMe();
-          const newAccessToken = authService.getAccessToken();
-          return {
-            user: response.data.user,
-            accessToken: newAccessToken,
-            refreshToken: authService.getRefreshToken(),
-          };
-        } catch (error) {
-          return null;
-        }
+      if (!token) {
+        return null;
       }
+
+      const response = await authService.getMe();
+      return {
+        user: response.data.user,
+        accessToken: token,
+        refreshToken: authService.getRefreshToken(),
+      };
     } catch (error) {
-      authService.logout();
-      return rejectWithValue(error.message);
+      return null;
     }
   }
 );
