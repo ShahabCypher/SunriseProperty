@@ -1,0 +1,37 @@
+{
+  "name": "sunriseproperty-backend",
+  "version": "1.0.0",
+  "description": "Sunrise Property Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "create-admin": "node src/scripts/createAdmin.js",
+    "migrate-coordinates": "node src/scripts/migrateCoordinates.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.12",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.4.1",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.2",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.10",
+    "sharp": "^0.34.3",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "express-list-endpoints": "^7.1.1"
+  }
+}
